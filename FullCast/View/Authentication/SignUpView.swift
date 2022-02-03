@@ -12,6 +12,7 @@ struct SignUpView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
+    @EnvironmentObject private var viewModel : AuthenticationViewModel
     
     init() {
         UITableView.appearance().backgroundColor = .clear
@@ -29,7 +30,6 @@ struct SignUpView: View {
             Spacer()
             footer
         }.background(Color.black)
-        
     }
     
     var header : some View {
@@ -47,9 +47,13 @@ struct SignUpView: View {
     var formFields : some View {
         Form {
             TextField("Email", text: $email)
+                .keyboardType(.emailAddress)
             SecureField("Password", text: $password)
+                .textContentType(.newPassword)
             SecureField("Confirm Password", text: $confirmPassword)
+                .textContentType(.newPassword)
         }
+        .disableAutocorrection(true)
         .background(.black)
         .frame(height : 200)
     }
@@ -60,10 +64,11 @@ struct SignUpView: View {
             Text("Terms & Privacy")
                 .underline()
         }
+        .padding()
     }
     
     private func signUpButtonPressed() {
-        print("Sign up button pressed")
+        viewModel.performSignUp(for: email, password, confirmPassword)
     }
 }
 

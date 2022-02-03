@@ -15,6 +15,8 @@
 		880849E627ABBD340006EC4F /* FullCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 880849E427ABBD340006EC4F /* FullCast.xcdatamodeld */; };
 		880849F127ABE28A0006EC4F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F027ABE28A0006EC4F /* SignUpView.swift */; };
 		880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F327ABE4A50006EC4F /* PrimaryButton.swift */; };
+		880849F627ABED110006EC4F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F527ABED110006EC4F /* Authentication.swift */; };
+		880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F727ABED830006EC4F /* AuthenticationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		880849E527ABBD340006EC4F /* FullCast.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullCast.xcdatamodel; sourceTree = "<group>"; };
 		880849F027ABE28A0006EC4F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		880849F327ABE4A50006EC4F /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		880849F527ABED110006EC4F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		880849F727ABED830006EC4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 		880849ED27ABC3140006EC4F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				880849F527ABED110006EC4F /* Authentication.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -98,6 +103,7 @@
 		880849EE27ABC31D0006EC4F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				880849F727ABED830006EC4F /* AuthenticationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -189,9 +195,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				880849F627ABED110006EC4F /* Authentication.swift in Sources */,
 				880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */,
 				880849E327ABBD340006EC4F /* Persistence.swift in Sources */,
 				880849F127ABE28A0006EC4F /* SignUpView.swift in Sources */,
+				880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */,
 				880849DC27ABBD310006EC4F /* LoginView.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
 				880849E627ABBD340006EC4F /* FullCast.xcdatamodeld in Sources */,

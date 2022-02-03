@@ -13,6 +13,7 @@ struct FullCastApp: App {
     var body: some Scene {
         WindowGroup {
             LoginView()
+                .environmentObject(AuthenticationViewModel())
         }
     }
 }

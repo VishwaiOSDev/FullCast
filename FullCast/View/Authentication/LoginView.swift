@@ -11,8 +11,8 @@ struct LoginView: View {
     
     @State private var email = ""
     @State private var password = ""
-    @State private var contentHeight: CGFloat?
     @State private var showSignUpSheet = false
+    @EnvironmentObject private var viewModel : AuthenticationViewModel
     
     init() {
         UITableView.appearance().backgroundColor = .clear
@@ -40,8 +40,11 @@ struct LoginView: View {
     var formFields : some View {
         Form {
             TextField("Email", text: $email)
+                .keyboardType(.emailAddress)
             SecureField("Password", text: $password)
+                .textContentType(.newPassword)
         }
+        .disableAutocorrection(true)
         .frame(height : 150)
         .background(.black)
     }
@@ -66,10 +69,11 @@ struct LoginView: View {
             Text("Terms & Privacy")
                 .underline()
         }
+        .padding()
     }
     
     func loginButtonPressed() {
-        print("Login Button Pressed.")
+        viewModel.performLogin(for: email, password)
     }
 }
 
