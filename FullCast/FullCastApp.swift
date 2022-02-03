@@ -12,7 +12,7 @@ struct FullCastApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
         }
     }
 }
