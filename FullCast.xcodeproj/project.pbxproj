@@ -17,6 +17,9 @@
 		880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F327ABE4A50006EC4F /* PrimaryButton.swift */; };
 		880849F627ABED110006EC4F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F527ABED110006EC4F /* Authentication.swift */; };
 		880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F727ABED830006EC4F /* AuthenticationViewModel.swift */; };
+		8872BABA27ACEF4200643352 /* VoiceRecodingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */; };
+		8872BABC27AD0AFE00643352 /* AudioRecorderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */; };
+		8872BABE27AD0F5700643352 /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABD27AD0F5700643352 /* Recording.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +34,10 @@
 		880849F327ABE4A50006EC4F /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		880849F527ABED110006EC4F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		880849F727ABED830006EC4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecodingView.swift; sourceTree = "<group>"; };
+		8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewModel.swift; sourceTree = "<group>"; };
+		8872BABD27AD0F5700643352 /* Recording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		8872BABF27AD10B900643352 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +70,7 @@
 		880849D827ABBD310006EC4F /* FullCast */ = {
 			isa = PBXGroup;
 			children = (
+				8872BABF27AD10B900643352 /* Info.plist */,
 				880849D927ABBD310006EC4F /* FullCastApp.swift */,
 				880849E227ABBD340006EC4F /* Persistence.swift */,
 				880849ED27ABC3140006EC4F /* Model */,
@@ -88,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				880849EF27ABC32C0006EC4F /* Authentication */,
+				8872BAB827ACEF1900643352 /* Voice Note */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -96,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				880849F527ABED110006EC4F /* Authentication.swift */,
+				8872BABD27AD0F5700643352 /* Recording.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -104,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				880849F727ABED830006EC4F /* AuthenticationViewModel.swift */,
+				8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -123,6 +134,14 @@
 				880849F327ABE4A50006EC4F /* PrimaryButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		8872BAB827ACEF1900643352 /* Voice Note */ = {
+			isa = PBXGroup;
+			children = (
+				8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */,
+			);
+			path = "Voice Note";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,10 +217,13 @@
 				880849F627ABED110006EC4F /* Authentication.swift in Sources */,
 				880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */,
 				880849E327ABBD340006EC4F /* Persistence.swift in Sources */,
+				8872BABA27ACEF4200643352 /* VoiceRecodingView.swift in Sources */,
 				880849F127ABE28A0006EC4F /* SignUpView.swift in Sources */,
+				8872BABC27AD0AFE00643352 /* AudioRecorderViewModel.swift in Sources */,
 				880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */,
 				880849DC27ABBD310006EC4F /* LoginView.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
+				8872BABE27AD0F5700643352 /* Recording.swift in Sources */,
 				880849E627ABBD340006EC4F /* FullCast.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +358,8 @@
 				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FullCast/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access to microphone to record the voice.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -365,6 +389,8 @@
 				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FullCast/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access to microphone to record the voice.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
