@@ -10,6 +10,7 @@ import SwiftUI
 struct VoiceRecodingView: View {
     
     @StateObject var viewModel = AudioRecorderViewModel()
+    @State var sliderValue: Double = 0
     
     var body: some View {
         VStack {
@@ -19,7 +20,14 @@ struct VoiceRecodingView: View {
                         HStack {
                             Image(systemName : "headphones.circle.fill")
                                 .font(.title)
-                            Text("\(recording.fileURL.lastPathComponent)")
+                            Text(verbatim: "\(String(recording.fileURL.lastPathComponent).dropLast(4))")
+                        }
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Text("Duration:\(recording.duration)")
+                            }
+                            .font(.caption)
                         }
                         Button(action: {
                             if recording.isPlaying {
@@ -51,15 +59,23 @@ struct VoiceRecodingView: View {
     }
     
     var recordingButton : some View {
-        ZStack {
+        ZStack(alignment : .center) {
             Circle()
-                .frame(width: 60, height: 60)
+                .stroke(.white, lineWidth: 3)
+                .frame(width: 70, height: 70)
+                .overlay(animatedRecording)
+        }
+    }
+    
+    var animatedRecording : some View {
+        if viewModel.isRecording {
+            return Image(systemName: "square.fill")
+                .font(.system(size: 45))
                 .foregroundColor(.red)
-            if viewModel.isRecording {
-                Circle()
-                    .stroke(.white, lineWidth: 3)
-                    .frame(width: 70, height: 70)
-            }
+        } else {
+            return Image(systemName: "circle.fill")
+                .font(.system(size: 58))
+                .foregroundColor(.red)
         }
     }
     

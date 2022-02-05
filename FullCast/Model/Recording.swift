@@ -10,5 +10,6 @@ import Foundation
 struct Recording : Identifiable {
     var id = UUID()
     let fileURL : URL
+    let duration : String
     var isPlaying : Bool = false
 }
