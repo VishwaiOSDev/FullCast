@@ -10,7 +10,6 @@ import SwiftUI
 struct VoiceRecodingView: View {
     
     @StateObject var viewModel = AudioRecorderViewModel()
-    @State var sliderValue: Double = 0
     
     var body: some View {
         VStack {
@@ -20,20 +19,13 @@ struct VoiceRecodingView: View {
                         HStack {
                             Image(systemName : "headphones.circle.fill")
                                 .font(.title)
-                            Text(verbatim: "\(String(recording.fileURL.lastPathComponent).dropLast(4))")
-                        }
-                        VStack {
-                            HStack {
-                                Spacer()
-                                Text("Duration:\(recording.duration)")
-                            }
-                            .font(.caption)
+                            Text(recording.fileName)
                         }
                         Button(action: {
                             if recording.isPlaying {
-                                viewModel.stopPlaying(url : recording.fileURL)
+                                viewModel.stopPlaying(url : recording.audioURL)
                             }else{
-                                viewModel.startPlaying(url: recording.fileURL)
+                                viewModel.startPlaying(url : recording.audioURL)
                             }
                         }) {
                             Image(systemName: recording.isPlaying ? "stop.fill" : "play.fill")

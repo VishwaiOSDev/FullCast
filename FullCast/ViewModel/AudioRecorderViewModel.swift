@@ -7,6 +7,7 @@
 
 import AVFoundation
 import SwiftUI
+import CoreData
 
 protocol Recordable {
     func startRecording()
@@ -21,64 +22,22 @@ protocol Playable {
 final class AudioRecorderViewModel : NSObject, ObservableObject {
     
     @Published var isRecording = false
-    @Published var recordingsList = [Recording]()
-    
+    @Published var recordingsList : [RecordingModel] = []
     var audioRecorder : AVAudioRecorder!
     var audioPlayer : AVAudioPlayer!
     var playingURL : URL?
     
     func fetchAllRecoding() {
-        recordingsList = []
-        do {
-            let directoryContents = try FileManager.default.contentsOfDirectory(at: URL.documents, includingPropertiesForKeys: nil)
-            for item in directoryContents {
-                do {
-                    audioPlayer = try AVAudioPlayer(contentsOf: item)
-                    recordingsList.append(Recording(fileURL: item, duration: audioPlayer.duration.stringFromTimeInterval()))
-                } catch {
-                    print(error.localizedDescription)
-                }
-            }
-            print(recordingsList)
-        } catch {
-            print(error.localizedDescription)
+        var myRecordings = [RecordingModel]()
+        guard let recordings = CoreDataController.shared.fetchAllRecordings() else { return }
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        for recording in recordings {
+            let audioURL = URL(fileURLWithPath: path).appendingPathComponent(recording.fileName!)
+            myRecordings.append(RecordingModel(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, isPlaying: false))
         }
-    }
-    
-}
-
-extension AudioRecorderViewModel : Playable {
-    func startPlaying(url : URL) {
-        playingURL = url
-        let playSession = AVAudioSession.sharedInstance()
-        do {
-            try playSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
-        } catch {
-            print("Playing failed in device")
+        DispatchQueue.main.async {
+            self.recordingsList = myRecordings
         }
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf : url)
-            audioPlayer.delegate = self
-            audioPlayer.prepareToPlay()
-            audioPlayer.play()
-            for index in 0..<recordingsList.count {
-                if recordingsList[index].fileURL == url {
-                    recordingsList[index].isPlaying = true
-                }
-            }
-        } catch {
-            print("Error start playing this audio \(error.localizedDescription)")
-        }
-    }
-    
-    func stopPlaying(url : URL) {
-        audioPlayer.stop()
-        for index in 0..<recordingsList.count {
-            if recordingsList[index].fileURL == url {
-                recordingsList[index].isPlaying = false
-            }
-        }
-        audioPlayer.currentTime = 0
     }
 }
 
@@ -92,9 +51,10 @@ extension AudioRecorderViewModel : Recordable {
             print("Cannot setup recording \(error.localizedDescription)")
         }
         recordingSession.requestRecordPermission { permissionGranted in
+            let newRecording = Recording(context: CoreDataController.shared.viewContext)
             if permissionGranted {
-                let path = URL.documents
-                let fileName = path.appendingPathComponent("FullCast: \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a")
+                let fileName = "FullCast: \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
+                let path = URL.documents.appendingPathComponent(fileName)
                 let settings = [
                     AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                     AVSampleRateKey: 12000,
@@ -102,9 +62,13 @@ extension AudioRecorderViewModel : Recordable {
                     AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
                 ]
                 do {
-                    self.audioRecorder = try AVAudioRecorder(url: fileName, settings: settings)
+                    self.audioRecorder = try AVAudioRecorder(url: path, settings: settings)
                     self.audioRecorder.prepareToRecord()
                     self.audioRecorder.record()
+                    newRecording.id = UUID()
+                    newRecording.fileName = fileName
+                    newRecording.createdAt = Date()
+                    CoreDataController.shared.save()
                     DispatchQueue.main.async {
                         self.isRecording = true
                     }
@@ -125,33 +89,47 @@ extension AudioRecorderViewModel : Recordable {
     }
 }
 
-extension AudioRecorderViewModel : AVAudioPlayerDelegate {
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+extension AudioRecorderViewModel : Playable {
+    func startPlaying(url : URL) {
+        playingURL = url
+        let playSession = AVAudioSession.sharedInstance()
+        do {
+            try playSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+        } catch {
+            print("Playing failed in device")
+        }
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf : url)
+            audioPlayer.delegate = self
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+            for i in 0..<recordingsList.count {
+                if recordingsList[i].audioURL == playingURL {
+                    recordingsList[i].isPlaying = true
+                }
+            }
+        } catch {
+            print("Error start playing this audio \(error.localizedDescription)")
+        }
+    }
+    
+    func stopPlaying(url : URL) {
+        audioPlayer.stop()
         for i in 0..<recordingsList.count {
-            if recordingsList[i].fileURL == playingURL {
+            if recordingsList[i].audioURL == playingURL {
                 recordingsList[i].isPlaying = false
             }
         }
+        audioPlayer.currentTime = 0
     }
 }
 
-extension TimeInterval{
-    func stringFromTimeInterval() -> String {
-        let time = NSInteger(self)
-        let seconds = time % 60
-        let minutes = (time / 60) % 60
-        let hours = (time / 3600)
-        var formatString = ""
-        if hours == 0 {
-            if(minutes < 10) {
-                formatString = "%2d:%0.2d"
-            }else {
-                formatString = "%0.2d:%0.2d"
+extension AudioRecorderViewModel : AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        for i in 0..<recordingsList.count {
+            if recordingsList[i].audioURL == playingURL {
+                recordingsList[i].isPlaying = false
             }
-            return String(format: formatString,minutes,seconds)
-        }else {
-            formatString = "%2d:%0.2d:%0.2d"
-            return String(format: formatString,hours,minutes,seconds)
         }
     }
 }
