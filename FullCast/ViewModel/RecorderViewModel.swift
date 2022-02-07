@@ -11,27 +11,19 @@ import SwiftUI
 
 final class RecorderViewModel : NSObject, ObservableObject {
     
-    @Published var isRecording = false
     @Published var recordingsList : [RecordDetails] = []
+    @Published var isRecording = false
     @Published var showAlert = false
     @Published var alertDetails : AlertDetails?
-    var audioRecorder : AVAudioRecorder!
-    var audioPlayer : AVAudioPlayer!
-    var playingURL : URL?
-    private var model = Recorder()
+    private(set) var recorderModel = Recorder()
+    private(set) var audioRecorder : AVAudioRecorder!
+    private(set) var audioPlayer : AVAudioPlayer!
+    private(set) var playingURL : URL?
     
     func getStoredRecordings() {
-        guard let recordings = model.fetchAllStoredRecordings() else { return }
+        guard let recordings = recorderModel.fetchAllStoredRecordings() else { return }
         DispatchQueue.main.async {
             self.recordingsList = recordings
-        }
-    }
-    
-    func showAlertMessage(title : String, message: String) {
-        let alert = AlertDetails(alertTitle: title, alertMessage: message)
-        DispatchQueue.main.async {
-            self.showAlert = true
-            self.alertDetails = alert
         }
     }
     
@@ -40,48 +32,50 @@ final class RecorderViewModel : NSObject, ObservableObject {
             UIApplication.shared.open(url)
         }
     }
+    
+    private func showAlertMessage(title : String, message: String) {
+        let alert = AlertDetails(alertTitle: title, alertMessage: message)
+        DispatchQueue.main.async {
+            self.showAlert = true
+            self.alertDetails = alert
+        }
+    }
 }
 
 extension RecorderViewModel : Recordable {
     func startRecording() {
-        let recordingSession = AVAudioSession.sharedInstance()
-        do {
-            try recordingSession.setCategory(.playAndRecord, mode: .default)
-            try recordingSession.setActive(true)
-        } catch {
-            print("Cannot setup recording \(error.localizedDescription)")
-        }
-        switch(recordingSession.recordPermission) {
+        let microphonePermission = setupRecordingSession()
+        switch(microphonePermission) {
         case .undetermined:
-            showAlertMessage(title: "Unable to access the Microphone", message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app.")
+            showAlertMessage(
+                title: "Unable to access the Microphone",
+                message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
+            )
         case .denied:
-            showAlertMessage(title: "Unable to access the Microphone", message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app.")
+            showAlertMessage(
+                title: "Unable to access the Microphone",
+                message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
+            )
         case .granted:
-            let newRecording = Recording(context: CoreDataController.shared.viewContext)
-            let fileName = "FullCast: \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
-            let path = URL.documents.appendingPathComponent(fileName)
-            let settings = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 12000,
-                AVNumberOfChannelsKey: 1,
-                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-            ]
-            do {
-                self.audioRecorder = try AVAudioRecorder(url: path, settings: settings)
-                self.audioRecorder.prepareToRecord()
-                self.audioRecorder.record()
-                newRecording.id = UUID()
-                newRecording.fileName = fileName
-                newRecording.createdAt = Date()
-                CoreDataController.shared.save()
-                DispatchQueue.main.async {
-                    self.isRecording = true
-                }
-            } catch {
-                print("Failed to Setup the Recording")
-            }
+            recordAudio()
         @unknown default:
             fatalError("Apple has introduced something new.")
+        }
+    }
+    
+    private func recordAudio() {
+        let fileName = "FullCast: \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
+        let path = URL.documents.appendingPathComponent(fileName)
+        do {
+            audioRecorder = try AVAudioRecorder(url: path, settings: Constants.settings)
+            audioRecorder.prepareToRecord()
+            audioRecorder.record()
+            recorderModel.saveFileToCoreData(fileName)
+            DispatchQueue.main.async {
+                self.isRecording = true
+            }
+        } catch {
+            fatalError("Failed to play the recording \(error.localizedDescription)")
         }
     }
     
@@ -90,6 +84,17 @@ extension RecorderViewModel : Recordable {
         DispatchQueue.main.async {
             self.isRecording = false
         }
+    }
+    
+    private func setupRecordingSession() -> AVAudioSession.RecordPermission {
+        let recordingSession = AVAudioSession.sharedInstance()
+        do {
+            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setActive(true)
+        } catch {
+            print("Cannot setup recording \(error.localizedDescription)")
+        }
+        return recordingSession.recordPermission
     }
 }
 

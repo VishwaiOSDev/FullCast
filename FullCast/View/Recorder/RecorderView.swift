@@ -9,12 +9,12 @@ import SwiftUI
 
 struct RecorderView: View {
     
-    @StateObject var viewModel = RecorderViewModel()
+    @StateObject var recorderViewModel = RecorderViewModel()
     
     var body: some View {
         VStack {
             ScrollView(showsIndicators : false) {
-                ForEach(viewModel.recordingsList) { recording in
+                ForEach(recorderViewModel.recordingsList) { recording in
                     VStack {
                         HStack {
                             Image(systemName : "headphones.circle.fill")
@@ -23,9 +23,9 @@ struct RecorderView: View {
                         }
                         Button(action: {
                             if recording.isPlaying {
-                                viewModel.stopPlaying(url : recording.audioURL)
+                                recorderViewModel.stopPlaying(url : recording.audioURL)
                             }else{
-                                viewModel.startPlaying(url : recording.audioURL)
+                                recorderViewModel.startPlaying(url : recording.audioURL)
                             }
                         }) {
                             Image(systemName: recording.isPlaying ? "stop.fill" : "play.fill")
@@ -43,18 +43,18 @@ struct RecorderView: View {
             Spacer()
             Button(action : recordButtonPressed) {
                 recordingButton
-            }.alert(isPresented: $viewModel.showAlert) {
-                guard let alertDetails = viewModel.alertDetails else { fatalError("Failed to load alert details") }
+            }.alert(isPresented: $recorderViewModel.showAlert) {
+                guard let alertDetails = recorderViewModel.alertDetails else { fatalError("Failed to load alert details") }
                 return Alert(
                     title: Text(alertDetails.alertTitle),
                     message: Text(alertDetails.alertMessage),
                     primaryButton: .cancel(Text("Cancel")),
-                    secondaryButton: .default(Text("Settings"), action: viewModel.openSettings)
+                    secondaryButton: .default(Text("Settings"), action: recorderViewModel.openSettings)
                 )
             }
         }
         .onAppear {
-            viewModel.getStoredRecordings()
+            recorderViewModel.getStoredRecordings()
         }
     }
     
@@ -68,7 +68,7 @@ struct RecorderView: View {
     }
     
     var animatedRecording : some View {
-        if viewModel.isRecording {
+        if recorderViewModel.isRecording {
             return Image(systemName: "square.fill")
                 .font(.system(size: 45))
                 .foregroundColor(.red)
@@ -80,11 +80,11 @@ struct RecorderView: View {
     }
     
     private func recordButtonPressed() {
-        if viewModel.isRecording {
-            viewModel.stopRecording()
-            viewModel.getStoredRecordings()
+        if recorderViewModel.isRecording {
+            recorderViewModel.stopRecording()
+            recorderViewModel.getStoredRecordings()
         } else {
-            viewModel.startRecording()
+            recorderViewModel.startRecording()
         }
     }
 }
