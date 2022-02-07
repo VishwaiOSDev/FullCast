@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct VoiceRecodingView: View {
+struct RecorderView: View {
     
-    @StateObject var viewModel = AudioRecorderViewModel()
+    @StateObject var viewModel = RecorderViewModel()
     
     var body: some View {
         VStack {
@@ -43,10 +43,18 @@ struct VoiceRecodingView: View {
             Spacer()
             Button(action : recordButtonPressed) {
                 recordingButton
+            }.alert(isPresented: $viewModel.showAlert) {
+                guard let alertDetails = viewModel.alertDetails else { fatalError("Failed to load alert details") }
+                return Alert(
+                    title: Text(alertDetails.alertTitle),
+                    message: Text(alertDetails.alertMessage),
+                    primaryButton: .cancel(Text("Cancel")),
+                    secondaryButton: .default(Text("Settings"), action: viewModel.openSettings)
+                )
             }
         }
         .onAppear {
-            viewModel.fetchAllRecoding()
+            viewModel.getStoredRecordings()
         }
     }
     
@@ -74,7 +82,7 @@ struct VoiceRecodingView: View {
     private func recordButtonPressed() {
         if viewModel.isRecording {
             viewModel.stopRecording()
-            viewModel.fetchAllRecoding()
+            viewModel.getStoredRecordings()
         } else {
             viewModel.startRecording()
         }
@@ -83,7 +91,7 @@ struct VoiceRecodingView: View {
 
 struct VoiceRecodingView_Previews: PreviewProvider {
     static var previews: some View {
-        VoiceRecodingView()
+        RecorderView()
             .preferredColorScheme(.dark)
     }
 }

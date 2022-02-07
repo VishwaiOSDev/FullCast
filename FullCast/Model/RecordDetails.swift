@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct Recording : Identifiable {
-    var id = UUID()
-    let fileURL : URL
-    let duration : String
+struct RecordDetails : Identifiable {
+    var id : UUID
+    var fileName : String
+    var audioURL : URL
+    var createdAt : Date
     var isPlaying : Bool = false
 }
