@@ -11,12 +11,15 @@
 		880849DC27ABBD310006EC4F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849DB27ABBD310006EC4F /* LoginView.swift */; };
 		880849DE27ABBD340006EC4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 880849DD27ABBD340006EC4F /* Assets.xcassets */; };
 		880849E127ABBD340006EC4F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 880849E027ABBD340006EC4F /* Preview Assets.xcassets */; };
-		880849E327ABBD340006EC4F /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849E227ABBD340006EC4F /* Persistence.swift */; };
-		880849E627ABBD340006EC4F /* FullCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 880849E427ABBD340006EC4F /* FullCast.xcdatamodeld */; };
 		880849F127ABE28A0006EC4F /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F027ABE28A0006EC4F /* SignUpView.swift */; };
 		880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F327ABE4A50006EC4F /* PrimaryButton.swift */; };
 		880849F627ABED110006EC4F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F527ABED110006EC4F /* Authentication.swift */; };
 		880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F727ABED830006EC4F /* AuthenticationViewModel.swift */; };
+		886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886874AC27AFB57700BF2692 /* CoreDataController.swift */; };
+		886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */; };
+		8872BABA27ACEF4200643352 /* VoiceRecodingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */; };
+		8872BABC27AD0AFE00643352 /* AudioRecorderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */; };
+		8872BABE27AD0F5700643352 /* RecordingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABD27AD0F5700643352 /* RecordingModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,12 +28,15 @@
 		880849DB27ABBD310006EC4F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		880849DD27ABBD340006EC4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		880849E027ABBD340006EC4F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		880849E227ABBD340006EC4F /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		880849E527ABBD340006EC4F /* FullCast.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullCast.xcdatamodel; sourceTree = "<group>"; };
 		880849F027ABE28A0006EC4F /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		880849F327ABE4A50006EC4F /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		880849F527ABED110006EC4F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		880849F727ABED830006EC4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		886874AC27AFB57700BF2692 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		886874AF27AFB67900BF2692 /* FullCast.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullCast.xcdatamodel; sourceTree = "<group>"; };
+		8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecodingView.swift; sourceTree = "<group>"; };
+		8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewModel.swift; sourceTree = "<group>"; };
+		8872BABD27AD0F5700643352 /* RecordingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,13 +70,13 @@
 			isa = PBXGroup;
 			children = (
 				880849D927ABBD310006EC4F /* FullCastApp.swift */,
-				880849E227ABBD340006EC4F /* Persistence.swift */,
+				886874AC27AFB57700BF2692 /* CoreDataController.swift */,
 				880849ED27ABC3140006EC4F /* Model */,
 				880849EC27ABC30B0006EC4F /* View */,
 				880849EE27ABC31D0006EC4F /* ViewModel */,
 				880849F227ABE4720006EC4F /* Components */,
 				880849DD27ABBD340006EC4F /* Assets.xcassets */,
-				880849E427ABBD340006EC4F /* FullCast.xcdatamodeld */,
+				886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */,
 				880849DF27ABBD340006EC4F /* Preview Content */,
 			);
 			path = FullCast;
@@ -88,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				880849EF27ABC32C0006EC4F /* Authentication */,
+				8872BAB827ACEF1900643352 /* Voice Note */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -96,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				880849F527ABED110006EC4F /* Authentication.swift */,
+				8872BABD27AD0F5700643352 /* RecordingModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -104,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				880849F727ABED830006EC4F /* AuthenticationViewModel.swift */,
+				8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -123,6 +132,14 @@
 				880849F327ABE4A50006EC4F /* PrimaryButton.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		8872BAB827ACEF1900643352 /* Voice Note */ = {
+			isa = PBXGroup;
+			children = (
+				8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */,
+			);
+			path = "Voice Note";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,12 +214,15 @@
 			files = (
 				880849F627ABED110006EC4F /* Authentication.swift in Sources */,
 				880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */,
-				880849E327ABBD340006EC4F /* Persistence.swift in Sources */,
+				886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */,
+				886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */,
+				8872BABA27ACEF4200643352 /* VoiceRecodingView.swift in Sources */,
 				880849F127ABE28A0006EC4F /* SignUpView.swift in Sources */,
+				8872BABC27AD0AFE00643352 /* AudioRecorderViewModel.swift in Sources */,
 				880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */,
 				880849DC27ABBD310006EC4F /* LoginView.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
-				880849E627ABBD340006EC4F /* FullCast.xcdatamodeld in Sources */,
+				8872BABE27AD0F5700643352 /* RecordingModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +356,8 @@
 				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FullCast/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access to microphone to record the voice.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -346,7 +368,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vishwa.FullCast;
+				PRODUCT_BUNDLE_IDENTIFIER = com.full.FullCast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -365,6 +387,8 @@
 				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FullCast/Info.plist;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need to access to microphone to record the voice.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -375,7 +399,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vishwa.FullCast;
+				PRODUCT_BUNDLE_IDENTIFIER = com.full.FullCast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -407,12 +431,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		880849E427ABBD340006EC4F /* FullCast.xcdatamodeld */ = {
+		886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				880849E527ABBD340006EC4F /* FullCast.xcdatamodel */,
+				886874AF27AFB67900BF2692 /* FullCast.xcdatamodel */,
 			);
-			currentVersion = 880849E527ABBD340006EC4F /* FullCast.xcdatamodel */;
+			currentVersion = 886874AF27AFB67900BF2692 /* FullCast.xcdatamodel */;
 			path = FullCast.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

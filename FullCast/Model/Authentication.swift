@@ -46,14 +46,14 @@ struct Authentication {
     }
     
     func performRequest(with request: URLRequest) {
-        URLSession.shared.dataTask(with: request) { data, _ , error in
+        URLSession.shared.dataTask(with: request) { [self] data, _ , error in
             if let e = error {
                 print(e.localizedDescription)
             }
             do {
                 guard let safeData = data else { return }
                 guard let token = parseJSON(safeData) else { return }
-                print("This is the token got from the server \(token.message)")
+                print("This is the token from the Server. \(token)")
             }
         }.resume()
     }
