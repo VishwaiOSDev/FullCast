@@ -32,8 +32,10 @@ final class CoreDataController {
         }
     }
     
-    func fetchAllRecordings() -> [Recording]? {
+    func fetchAllRecordings(of selectedCategory: Category) -> [Recording]? {
         let request : NSFetchRequest<Recording> = Recording.fetchRequest()
+        let cateogoryFiltering = NSPredicate(format: "toCategory.categoryName MATCHES %@", selectedCategory.wrappedCategoryName)
+        request.predicate = cateogoryFiltering
         let dateSorting = NSSortDescriptor(key: "createdAt", ascending: false)
         request.sortDescriptors = [dateSorting]
         do {

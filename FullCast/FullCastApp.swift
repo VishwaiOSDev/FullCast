@@ -10,9 +10,12 @@ import SwiftUI
 @main
 struct FullCastApp: App {
     
+    private let context = CoreDataController.shared.viewContext
+    
     var body: some Scene {
         WindowGroup {
-            RecorderView()
+            CategoryView()
+                .environment(\.managedObjectContext, context)
         }
     }
 }

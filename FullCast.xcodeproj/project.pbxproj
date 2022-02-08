@@ -16,12 +16,20 @@
 		880849F627ABED110006EC4F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F527ABED110006EC4F /* Authentication.swift */; };
 		880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F727ABED830006EC4F /* AuthenticationViewModel.swift */; };
 		88272F6327AFF30B000B2AAC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88272F6227AFF30B000B2AAC /* Extensions.swift */; };
+		884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643AE27B22CE400E5AAD4 /* RecordingCell.swift */; };
+		884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643B027B234B200E5AAD4 /* CategoryView.swift */; };
 		886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886874AC27AFB57700BF2692 /* CoreDataController.swift */; };
 		886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */; };
 		8872BABA27ACEF4200643352 /* RecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BAB927ACEF4200643352 /* RecorderView.swift */; };
 		8872BABC27AD0AFE00643352 /* RecorderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */; };
 		8872BABE27AD0F5700643352 /* RecordDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABD27AD0F5700643352 /* RecordDetails.swift */; };
 		8879D9D727B14513004E19C0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8879D9D627B14513004E19C0 /* Constants.swift */; };
+		889E4D4027B25F3B00173B4C /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */; };
+		889E4D4427B27B1100173B4C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D4327B27B1100173B4C /* Category.swift */; };
+		889E4D4927B282B200173B4C /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D4527B282B100173B4C /* Category+CoreDataClass.swift */; };
+		889E4D4A27B282B200173B4C /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D4627B282B100173B4C /* Category+CoreDataProperties.swift */; };
+		889E4D4B27B282B200173B4C /* Recording+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D4727B282B100173B4C /* Recording+CoreDataClass.swift */; };
+		889E4D4C27B282B200173B4C /* Recording+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D4827B282B100173B4C /* Recording+CoreDataProperties.swift */; };
 		88DFD8B327B10865008E39B1 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DFD8B227B10865008E39B1 /* Recorder.swift */; };
 		88DFD8B527B1092C008E39B1 /* AlertDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DFD8B427B1092C008E39B1 /* AlertDetails.swift */; };
 /* End PBXBuildFile section */
@@ -37,12 +45,20 @@
 		880849F527ABED110006EC4F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		880849F727ABED830006EC4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		88272F6227AFF30B000B2AAC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		884643AE27B22CE400E5AAD4 /* RecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingCell.swift; sourceTree = "<group>"; };
+		884643B027B234B200E5AAD4 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		886874AC27AFB57700BF2692 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		886874AF27AFB67900BF2692 /* FullCast.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullCast.xcdatamodel; sourceTree = "<group>"; };
 		8872BAB927ACEF4200643352 /* RecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderView.swift; sourceTree = "<group>"; };
 		8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderViewModel.swift; sourceTree = "<group>"; };
 		8872BABD27AD0F5700643352 /* RecordDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetails.swift; sourceTree = "<group>"; };
 		8879D9D627B14513004E19C0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		889E4D4327B27B1100173B4C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		889E4D4527B282B100173B4C /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataClass.swift"; path = "FullCast/NSManagedObject/Category+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		889E4D4627B282B100173B4C /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataProperties.swift"; path = "FullCast/NSManagedObject/Category+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		889E4D4727B282B100173B4C /* Recording+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Recording+CoreDataClass.swift"; path = "FullCast/NSManagedObject/Recording+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		889E4D4827B282B100173B4C /* Recording+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Recording+CoreDataProperties.swift"; path = "FullCast/NSManagedObject/Recording+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		88DFD8B227B10865008E39B1 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		88DFD8B427B1092C008E39B1 /* AlertDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,6 +95,7 @@
 			children = (
 				880849D927ABBD310006EC4F /* FullCastApp.swift */,
 				886874AC27AFB57700BF2692 /* CoreDataController.swift */,
+				889E4D4D27B282BC00173B4C /* NSManagedObject */,
 				880849ED27ABC3140006EC4F /* Model */,
 				880849EC27ABC30B0006EC4F /* View */,
 				880849EE27ABC31D0006EC4F /* ViewModel */,
@@ -113,9 +130,9 @@
 			isa = PBXGroup;
 			children = (
 				880849F527ABED110006EC4F /* Authentication.swift */,
-				88DFD8B227B10865008E39B1 /* Recorder.swift */,
-				8872BABD27AD0F5700643352 /* RecordDetails.swift */,
 				88DFD8B427B1092C008E39B1 /* AlertDetails.swift */,
+				889E4D4127B27ACD00173B4C /* Recorder */,
+				889E4D4227B27AE200173B4C /* Category */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -125,6 +142,7 @@
 			children = (
 				880849F727ABED830006EC4F /* AuthenticationViewModel.swift */,
 				8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */,
+				889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -142,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				880849F327ABE4A50006EC4F /* PrimaryButton.swift */,
+				884643AE27B22CE400E5AAD4 /* RecordingCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -149,6 +168,7 @@
 		8872BAB827ACEF1900643352 /* Recorder */ = {
 			isa = PBXGroup;
 			children = (
+				884643B027B234B200E5AAD4 /* CategoryView.swift */,
 				8872BAB927ACEF4200643352 /* RecorderView.swift */,
 			);
 			path = Recorder;
@@ -160,6 +180,34 @@
 				8879D9D627B14513004E19C0 /* Constants.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		889E4D4127B27ACD00173B4C /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				88DFD8B227B10865008E39B1 /* Recorder.swift */,
+				8872BABD27AD0F5700643352 /* RecordDetails.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		889E4D4227B27AE200173B4C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				889E4D4327B27B1100173B4C /* Category.swift */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		889E4D4D27B282BC00173B4C /* NSManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				889E4D4527B282B100173B4C /* Category+CoreDataClass.swift */,
+				889E4D4627B282B100173B4C /* Category+CoreDataProperties.swift */,
+				889E4D4727B282B100173B4C /* Recording+CoreDataClass.swift */,
+				889E4D4827B282B100173B4C /* Recording+CoreDataProperties.swift */,
+			);
+			path = NSManagedObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,19 +281,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				880849F627ABED110006EC4F /* Authentication.swift in Sources */,
+				884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */,
+				889E4D4427B27B1100173B4C /* Category.swift in Sources */,
 				880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */,
 				886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */,
 				886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */,
 				8872BABA27ACEF4200643352 /* RecorderView.swift in Sources */,
+				889E4D4A27B282B200173B4C /* Category+CoreDataProperties.swift in Sources */,
+				889E4D4C27B282B200173B4C /* Recording+CoreDataProperties.swift in Sources */,
 				8879D9D727B14513004E19C0 /* Constants.swift in Sources */,
+				889E4D4B27B282B200173B4C /* Recording+CoreDataClass.swift in Sources */,
 				880849F127ABE28A0006EC4F /* SignUpView.swift in Sources */,
 				8872BABC27AD0AFE00643352 /* RecorderViewModel.swift in Sources */,
 				88272F6327AFF30B000B2AAC /* Extensions.swift in Sources */,
 				880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */,
 				880849DC27ABBD310006EC4F /* LoginView.swift in Sources */,
+				889E4D4927B282B200173B4C /* Category+CoreDataClass.swift in Sources */,
+				884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
 				88DFD8B527B1092C008E39B1 /* AlertDetails.swift in Sources */,
 				8872BABE27AD0F5700643352 /* RecordDetails.swift in Sources */,
+				889E4D4027B25F3B00173B4C /* CategoryViewModel.swift in Sources */,
 				88DFD8B327B10865008E39B1 /* Recorder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +443,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -418,6 +475,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -18,7 +18,7 @@ struct PrimaryButton : View {
                 .padding()
                 .foregroundColor(.black)
                 .frame(maxWidth : .infinity)
-                .background(.yellow)
+                .background(Color(UIColor(.yellow)))
                 .cornerRadius(12)
                 .padding()
         }

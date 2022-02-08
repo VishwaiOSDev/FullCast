@@ -9,6 +9,16 @@ import AVFoundation
 import CoreData
 import SwiftUI
 
+protocol Recordable {
+    func startRecording(on category : Category)
+    func stopRecording()
+}
+
+protocol Playable {
+    func startPlaying(url : URL)
+    func stopPlaying(url : URL)
+}
+
 final class RecorderViewModel : NSObject, ObservableObject {
     
     @Published var recordingsList : [RecordDetails] = []
@@ -20,8 +30,8 @@ final class RecorderViewModel : NSObject, ObservableObject {
     private(set) var audioPlayer : AVAudioPlayer!
     private(set) var playingURL : URL?
     
-    func getStoredRecordings() {
-        guard let recordings = recorderModel.fetchAllStoredRecordings() else { return }
+    func getStoredRecordings(for selectedCategory: Category) {
+        guard let recordings = recorderModel.fetchAllStoredRecordings(of: selectedCategory) else { return }
         DispatchQueue.main.async {
             self.recordingsList = recordings
         }
@@ -43,7 +53,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
 }
 
 extension RecorderViewModel : Recordable {
-    func startRecording() {
+    func startRecording(on category : Category) {
         let microphonePermission = setupRecordingSession()
         switch(microphonePermission) {
         case .undetermined:
@@ -57,25 +67,9 @@ extension RecorderViewModel : Recordable {
                 message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
             )
         case .granted:
-            recordAudio()
+            recordAudio(on: category)
         @unknown default:
             fatalError("Apple has introduced something new.")
-        }
-    }
-    
-    private func recordAudio() {
-        let fileName = "FullCast: \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
-        let path = URL.documents.appendingPathComponent(fileName)
-        do {
-            audioRecorder = try AVAudioRecorder(url: path, settings: Constants.settings)
-            audioRecorder.prepareToRecord()
-            audioRecorder.record()
-            recorderModel.saveFileToCoreData(fileName)
-            DispatchQueue.main.async {
-                self.isRecording = true
-            }
-        } catch {
-            fatalError("Failed to play the recording \(error.localizedDescription)")
         }
     }
     
@@ -84,17 +78,6 @@ extension RecorderViewModel : Recordable {
         DispatchQueue.main.async {
             self.isRecording = false
         }
-    }
-    
-    private func setupRecordingSession() -> AVAudioSession.RecordPermission {
-        let recordingSession = AVAudioSession.sharedInstance()
-        do {
-            try recordingSession.setCategory(.playAndRecord, mode: .default)
-            try recordingSession.setActive(true)
-        } catch {
-            print("Cannot setup recording \(error.localizedDescription)")
-        }
-        return recordingSession.recordPermission
     }
 }
 
@@ -133,6 +116,35 @@ extension RecorderViewModel : AVAudioPlayerDelegate {
             if recordingsList[i].audioURL == playingURL {
                 recordingsList[i].isPlaying = false
             }
+        }
+    }
+}
+
+extension RecorderViewModel {
+    private func setupRecordingSession() -> AVAudioSession.RecordPermission {
+        let recordingSession = AVAudioSession.sharedInstance()
+        do {
+            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setActive(true)
+        } catch {
+            print("Cannot setup recording \(error.localizedDescription)")
+        }
+        return recordingSession.recordPermission
+    }
+    
+    private func recordAudio(on category : Category) {
+        let fileName = "FullCast: \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
+        let path = URL.documents.appendingPathComponent(fileName)
+        do {
+            audioRecorder = try AVAudioRecorder(url: path, settings: Constants.settings)
+            audioRecorder.prepareToRecord()
+            audioRecorder.record()
+            recorderModel.saveFileToCoreData(of: fileName,on: category)
+            DispatchQueue.main.async {
+                self.isRecording = true
+            }
+        } catch {
+            fatalError("Failed to play the recording \(error.localizedDescription)")
         }
     }
 }

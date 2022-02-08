@@ -7,29 +7,20 @@
 
 import Foundation
 
-protocol Recordable {
-    func startRecording()
-    func stopRecording()
-}
-
-protocol Playable {
-    func startPlaying(url : URL)
-    func stopPlaying(url : URL)
-}
-
 struct Recorder {
     
-    func fetchAllStoredRecordings() -> [RecordDetails]?  {
-        guard let recordings = CoreDataController.shared.fetchAllRecordings() else { return nil }
+    func fetchAllStoredRecordings(of selectedCategory: Category) -> [RecordDetails]?  {
+        guard let recordings = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) else { return nil }
         let path = getPathOfDocumentDirectory()
         return detailsOf(recordings, in : path)
     }
     
-    func saveFileToCoreData(_ fileName : String) {
+    func saveFileToCoreData(of fileName : String, on category : Category) {
         let newRecording = Recording(context: CoreDataController.shared.viewContext)
         newRecording.id = UUID()
         newRecording.fileName = fileName
         newRecording.createdAt = Date()
+        newRecording.toCategory = category
         CoreDataController.shared.save()
     }
     

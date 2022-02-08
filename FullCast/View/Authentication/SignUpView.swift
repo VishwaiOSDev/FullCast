@@ -54,7 +54,7 @@ struct SignUpView: View {
                 .textContentType(.newPassword)
         }
         .disableAutocorrection(true)
-        .background(.black)
+        .background(Color(UIColor(.black)))
         .frame(height : 200)
     }
     

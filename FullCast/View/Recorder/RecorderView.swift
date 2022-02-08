@@ -10,55 +10,50 @@ import SwiftUI
 struct RecorderView: View {
     
     @StateObject var recorderViewModel = RecorderViewModel()
+    var selectedCategory : Category?
     
     var body: some View {
         VStack {
-            ScrollView(showsIndicators : false) {
-                ForEach(recorderViewModel.recordingsList) { recording in
-                    VStack {
-                        HStack {
-                            Image(systemName : "headphones.circle.fill")
-                                .font(.title)
-                            Text(recording.fileName)
-                        }
-                        Button(action: {
-                            if recording.isPlaying {
-                                recorderViewModel.stopPlaying(url : recording.audioURL)
-                            }else{
-                                recorderViewModel.startPlaying(url : recording.audioURL)
-                            }
-                        }) {
-                            Image(systemName: recording.isPlaying ? "stop.fill" : "play.fill")
-                                .foregroundColor(.white)
-                                .font(.system(size:30))
-                        }
-                    }
-                    .padding()
-                    .frame(maxWidth : .infinity)
-                    .background(Color(UIColor(red: 0.34, green: 0.34, blue: 0.34, alpha: 1.00)))
-                    .cornerRadius(12)
-                    .padding(.horizontal)
-                }
-            }
+            listView
             Spacer()
-            Button(action : recordButtonPressed) {
-                recordingButton
-            }.alert(isPresented: $recorderViewModel.showAlert) {
-                guard let alertDetails = recorderViewModel.alertDetails else { fatalError("Failed to load alert details") }
-                return Alert(
-                    title: Text(alertDetails.alertTitle),
-                    message: Text(alertDetails.alertMessage),
-                    primaryButton: .cancel(Text("Cancel")),
-                    secondaryButton: .default(Text("Settings"), action: recorderViewModel.openSettings)
-                )
-            }
+            footer
         }
+        .navigationTitle("Recordings")
         .onAppear {
-            recorderViewModel.getStoredRecordings()
+            guard let selectedCategory = selectedCategory else { return }
+            recorderViewModel.getStoredRecordings(for: selectedCategory)
         }
     }
     
-    var recordingButton : some View {
+    private var listView : some View {
+        ScrollView(showsIndicators : false) {
+            ForEach(recorderViewModel.recordingsList) { recording in
+                RecordingCell(fileName: recording.fileName, isPlaying: recording.isPlaying) {
+                    if recording.isPlaying {
+                        recorderViewModel.stopPlaying(url : recording.audioURL)
+                    } else {
+                        recorderViewModel.startPlaying(url : recording.audioURL)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var footer : some View {
+        Button(action : recordButtonPressed) {
+            recordingButton
+        }.alert(isPresented: $recorderViewModel.showAlert) {
+            guard let alertDetails = recorderViewModel.alertDetails else { fatalError("Failed to load alert details") }
+            return Alert(
+                title: Text(alertDetails.alertTitle),
+                message: Text(alertDetails.alertMessage),
+                primaryButton: .cancel(Text("Cancel")),
+                secondaryButton: .default(Text("Settings"), action: recorderViewModel.openSettings)
+            )
+        }
+    }
+    
+    private var recordingButton : some View {
         ZStack(alignment : .center) {
             Circle()
                 .stroke(.white, lineWidth: 3)
@@ -67,7 +62,7 @@ struct RecorderView: View {
         }
     }
     
-    var animatedRecording : some View {
+    private var animatedRecording : some View {
         if recorderViewModel.isRecording {
             return Image(systemName: "square.fill")
                 .font(.system(size: 45))
@@ -80,11 +75,12 @@ struct RecorderView: View {
     }
     
     private func recordButtonPressed() {
+        guard let selectedCategory = selectedCategory else { return }
         if recorderViewModel.isRecording {
             recorderViewModel.stopRecording()
-            recorderViewModel.getStoredRecordings()
+            recorderViewModel.getStoredRecordings(for: selectedCategory)
         } else {
-            recorderViewModel.startRecording()
+            recorderViewModel.startRecording(on: selectedCategory)
         }
     }
 }
