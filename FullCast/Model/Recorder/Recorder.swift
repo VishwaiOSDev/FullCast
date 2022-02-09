@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import AVFoundation
 
 struct Recorder {
     
-    func fetchAllStoredRecordings(of selectedCategory: Category) -> [RecordDetails]?  {
+    var player: AVAudioPlayer!
+    
+    mutating func fetchAllStoredRecordings(of selectedCategory: Category) -> [RecordDetails]?  {
         guard let recordings = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) else { return nil }
         let path = getPathOfDocumentDirectory()
         return detailsOf(recordings, in : path)
@@ -24,13 +27,25 @@ struct Recorder {
         CoreDataController.shared.save()
     }
     
-    private func detailsOf(_ recordings: [Recording], in path : String) -> [RecordDetails] {
+    private mutating func detailsOf(_ recordings: [Recording], in path : String) -> [RecordDetails] {
         var recordingDetails = [RecordDetails]()
         for recording in recordings {
             let audioURL = URL(fileURLWithPath: path).appendingPathComponent(recording.fileName!)
-            recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!))
+            if let durationOfAudio = getDurationOfEachAudio(of: audioURL) {
+                recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio))
+            }
         }
         return recordingDetails
+    }
+    
+    private mutating func getDurationOfEachAudio(of url : URL) -> Float? {
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            return Float(player.duration)
+        } catch {
+            print(error.localizedDescription)
+            return nil
+        }
     }
     
     private func getPathOfDocumentDirectory() -> String {

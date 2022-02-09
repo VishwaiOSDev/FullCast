@@ -15,7 +15,7 @@ protocol Recordable {
 }
 
 protocol Playable {
-    func startPlaying(url : URL)
+    func startPlaying(url : URL, sliderDuration: Float)
     func stopPlaying(url : URL)
 }
 
@@ -25,10 +25,12 @@ final class RecorderViewModel : NSObject, ObservableObject {
     @Published var isRecording = false
     @Published var showAlert = false
     @Published var alertDetails : AlertDetails?
+    private(set) var audioIsPlaying = false
     private(set) var recorderModel = Recorder()
     private(set) var audioRecorder : AVAudioRecorder!
     private(set) var audioPlayer : AVAudioPlayer!
     private(set) var playingURL : URL?
+    let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     func getStoredRecordings(for selectedCategory: Category) {
         guard let recordings = recorderModel.fetchAllStoredRecordings(of: selectedCategory) else { return }
@@ -82,16 +84,19 @@ extension RecorderViewModel : Recordable {
 }
 
 extension RecorderViewModel : Playable {
-    func startPlaying(url : URL) {
+    func startPlaying(url : URL, sliderDuration : Float) {
+        audioIsPlaying = true
         playingURL = url
         do {
             audioPlayer = try AVAudioPlayer(contentsOf : url)
+            audioPlayer.currentTime = Double(sliderDuration)
             audioPlayer.delegate = self
             audioPlayer.prepareToPlay()
             audioPlayer.play()
-            for i in 0..<recordingsList.count {
+            for i in recordingsList.indices {
                 if recordingsList[i].audioURL == playingURL {
                     recordingsList[i].isPlaying = true
+                    break
                 }
             }
         } catch {
@@ -99,22 +104,33 @@ extension RecorderViewModel : Playable {
         }
     }
     
-    func stopPlaying(url : URL) {
-        audioPlayer.stop()
-        for i in 0..<recordingsList.count {
-            if recordingsList[i].audioURL == playingURL {
-                recordingsList[i].isPlaying = false
+    func updateSlider() {
+        for i in recordingsList.indices {
+            if recordingsList[i].isPlaying  {
+                recordingsList[i].elapsedDuration = Float(audioPlayer.currentTime)
             }
         }
-        audioPlayer.currentTime = 0
+    }
+    
+    func stopPlaying(url : URL) {
+        audioIsPlaying = false
+        audioPlayer.stop()
+        for i in recordingsList.indices {
+            if recordingsList[i].audioURL == playingURL {
+                recordingsList[i].isPlaying = false
+                break
+            }
+        }
     }
 }
 
 extension RecorderViewModel : AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        for i in 0..<recordingsList.count {
+        audioIsPlaying = false
+        for i in recordingsList.indices {
             if recordingsList[i].audioURL == playingURL {
                 recordingsList[i].isPlaying = false
+                break
             }
         }
     }

@@ -10,12 +10,6 @@ import SwiftUI
 struct RecorderView: View {
     
     @StateObject var recorderViewModel = RecorderViewModel()
-    private var categoryName : String {
-        get {
-            guard let category = selectedCategory else { return "Unknown" }
-            return category.wrappedCategoryName
-        }
-    }
     var selectedCategory : Category?
     
     var body: some View {
@@ -24,7 +18,7 @@ struct RecorderView: View {
             Spacer()
             footer
         }
-        .navigationTitle(categoryName)
+        .navigationTitle(selectedCategory!.wrappedCategoryName)
         .onAppear {
             guard let selectedCategory = selectedCategory else { return }
             recorderViewModel.getStoredRecordings(for: selectedCategory)
@@ -38,8 +32,13 @@ struct RecorderView: View {
                     if recording.isPlaying {
                         recorderViewModel.stopPlaying(url : recording.audioURL)
                     } else {
-                        recorderViewModel.startPlaying(url : recording.audioURL)
+                        recorderViewModel.startPlaying(url : recording.audioURL, sliderDuration: recording.elapsedDuration)
                     }
+                }
+            }
+            .onReceive(recorderViewModel.timer) { time in
+                if recorderViewModel.audioIsPlaying {
+                    recorderViewModel.updateSlider()
                 }
             }
         }

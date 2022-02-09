@@ -19,7 +19,9 @@ struct RecordingCell : View {
                     .font(.title)
                 Text(record.fileName)
             }
-            Slider(value: $record.elapsedDuration, in: 0...100)
+            Slider(value: $record.elapsedDuration, in: 0...Float(record.duration))
+                .accentColor(Color(UIColor(.yellow)))
+                .padding(.vertical, 4)
             Button(action: action) {
                 Image(systemName: record.isPlaying ? "stop.fill" : "play.fill")
                     .foregroundColor(.white)
