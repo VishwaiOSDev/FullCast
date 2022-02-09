@@ -33,8 +33,8 @@ struct RecorderView: View {
     
     private var listView : some View {
         ScrollView(showsIndicators : false) {
-            ForEach(recorderViewModel.recordingsList) { recording in
-                RecordingCell(fileName: recording.fileName, isPlaying: recording.isPlaying) {
+            ForEach($recorderViewModel.recordingsList) { $recording in
+                RecordingCell(record: $recording) {
                     if recording.isPlaying {
                         recorderViewModel.stopPlaying(url : recording.audioURL)
                     } else {

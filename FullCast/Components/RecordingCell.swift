@@ -9,8 +9,7 @@ import SwiftUI
 
 struct RecordingCell : View {
     
-    var fileName : String
-    var isPlaying : Bool = false
+    @Binding var record : RecordDetails
     var action : () -> ()
     
     var body : some View {
@@ -18,10 +17,11 @@ struct RecordingCell : View {
             HStack {
                 Image(systemName : "headphones.circle.fill")
                     .font(.title)
-                Text(fileName)
+                Text(record.fileName)
             }
+            Slider(value: $record.elapsedDuration, in: 0...100)
             Button(action: action) {
-                Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+                Image(systemName: record.isPlaying ? "stop.fill" : "play.fill")
                     .foregroundColor(.white)
                     .font(.system(size:30))
             }
@@ -34,3 +34,4 @@ struct RecordingCell : View {
     }
     
 }
+
