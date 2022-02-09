@@ -124,7 +124,7 @@ extension RecorderViewModel {
     private func setupRecordingSession() -> AVAudioSession.RecordPermission {
         let recordingSession = AVAudioSession.sharedInstance()
         do {
-            try recordingSession.setCategory(.playAndRecord, mode: .default)
+            try recordingSession.setCategory(.playAndRecord , mode: .default, options: [.defaultToSpeaker])
             try recordingSession.setActive(true)
         } catch {
             print("Cannot setup recording \(error.localizedDescription)")

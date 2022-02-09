@@ -10,6 +10,12 @@ import SwiftUI
 struct RecorderView: View {
     
     @StateObject var recorderViewModel = RecorderViewModel()
+    private var categoryName : String {
+        get {
+            guard let category = selectedCategory else { return "Unknown" }
+            return category.wrappedCategoryName
+        }
+    }
     var selectedCategory : Category?
     
     var body: some View {
@@ -18,7 +24,7 @@ struct RecorderView: View {
             Spacer()
             footer
         }
-        .navigationTitle("Recordings")
+        .navigationTitle(categoryName)
         .onAppear {
             guard let selectedCategory = selectedCategory else { return }
             recorderViewModel.getStoredRecordings(for: selectedCategory)
@@ -51,6 +57,10 @@ struct RecorderView: View {
                 secondaryButton: .default(Text("Settings"), action: recorderViewModel.openSettings)
             )
         }
+        .frame(maxWidth : .infinity)
+        .padding()
+        .padding(.vertical, 14)
+        .background(Color(UIColor(Color(hue: 1.0, saturation: 0.0, brightness: 0.101))))
     }
     
     private var recordingButton : some View {

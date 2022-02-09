@@ -14,19 +14,23 @@ struct CategoryView: View {
     
     var body: some View {
         NavigationView {
-            List(categories) { category in
-                NavigationLink(destination: RecorderView(selectedCategory: category)) {
-                    Text(category.wrappedCategoryName)
+            categoryList
+                .toolbar {
+                    Button(action: newFolderButtonPressed) {
+                        Image(systemName: "folder.badge.plus")
+                    }
                 }
-            }
-            .toolbar {
-                Button(action: newFolderButtonPressed) {
-                    Image(systemName: "folder.badge.plus")
-                }
-            }
-            .navigationTitle("FullCast")
+                .navigationTitle("FullCast")
         }
         .navigationViewStyle(.stack)
+    }
+    
+    private var categoryList : some View {
+        List(categories) { category in
+            NavigationLink(destination: RecorderView(selectedCategory: category)) {
+                Text(category.wrappedCategoryName)
+            }
+        }
     }
     
     private func newFolderButtonPressed() {
