@@ -78,7 +78,9 @@ extension RecorderViewModel : Recordable {
     func stopRecording(){
         audioRecorder.stop()
         DispatchQueue.main.async {
-            self.isRecording = false
+            withAnimation {
+                self.isRecording = false
+            }
         }
     }
 }
@@ -157,7 +159,9 @@ extension RecorderViewModel {
             audioRecorder.record()
             recorderModel.saveFileToCoreData(of: fileName,on: category)
             DispatchQueue.main.async {
-                self.isRecording = true
+                withAnimation {
+                    self.isRecording = true                    
+                }
             }
         } catch {
             fatalError("Failed to play the recording \(error.localizedDescription)")

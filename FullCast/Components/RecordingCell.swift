@@ -10,6 +10,7 @@ import SwiftUI
 struct RecordingCell : View {
     
     @Binding var record : RecordDetails
+    @ObservedObject var recorderViewModel : RecorderViewModel
     var action : () -> ()
     
     var body : some View {
@@ -19,7 +20,13 @@ struct RecordingCell : View {
                     .font(.title)
                 Text(record.fileName)
             }
-            Slider(value: $record.elapsedDuration, in: 0...Float(record.duration))
+            Slider(value: $record.elapsedDuration, in: 0...Float(record.duration), onEditingChanged: { didChanged in
+                if didChanged {
+                    recorderViewModel.stopPlaying(url: record.audioURL)
+                } else {
+                    recorderViewModel.startPlaying(url: record.audioURL, sliderDuration: record.elapsedDuration)
+                }
+            })
                 .accentColor(Color(UIColor(.yellow)))
                 .padding(.vertical, 4)
             Button(action: action) {
