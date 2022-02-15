@@ -38,7 +38,7 @@ extension CategoryViewModel {
         alert?.addAction(cancelAction)
         presentAlert(of : alert!)
     }
-    
+        
     @objc private func alertTextFieldDidChange(_ sender: UITextField) {
         alert?.actions[0].isEnabled = sender.text!.count > 0
     }

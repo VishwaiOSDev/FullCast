@@ -14,4 +14,5 @@ struct CategoryModel {
         newCategory.categoryName = folderName
         CoreDataController.shared.save()
     }
+    
 }

@@ -18,6 +18,7 @@ final class CoreDataController {
     private init() {
         container = NSPersistentContainer(name: "FullCast")
         container.loadPersistentStores { description, error in
+            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             if let error = error {
                 fatalError("Error \(error.localizedDescription)")
             }
@@ -46,5 +47,61 @@ final class CoreDataController {
             return nil
         }
     }
+    
+    func deleteRecording(recording: Recording) {
+        viewContext.delete(recording)
+        save()
+    }
+    
+}
+
+final class TestCoreDataStack {
+    lazy var presistentContainer: NSPersistentContainer = {
+        var description = NSPersistentStoreDescription()
+        description.url = URL(fileURLWithPath: "/dev/null")
+        let container = NSPersistentContainer(name: "FullCast")
+        container.persistentStoreDescriptions = [description]
+        //        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.loadPersistentStores { _ , error in
+            if let error = error as NSError? {
+                fatalError("Unable to setup CoreData in-memory \(error)")
+            }
+        }
+        return container
+    }()
+    
+    
+    func addFolderToDataBase(folderName: String) {
+        let context = presistentContainer.newBackgroundContext()
+        context.performAndWait {
+            let folder = NSEntityDescription.insertNewObject(forEntityName: "Category", into: context) as! Category
+            folder.categoryName = folderName
+            try? context.save()
+        }
+    }
+    
+    func fetchFolderWithName(folderName: String) -> [Category] {
+        let context = presistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+        fetchRequest.fetchLimit = 1
+        fetchRequest.predicate = NSPredicate(format: "categoryName == %@", folderName)
+        var folder = [Category]()
+        context.performAndWait {
+            let details = try! context.fetch(fetchRequest)
+            folder = details
+        }
+        return folder
+    }
+    
+    func fetchAllFolders() -> [Category] {
+        let context = presistentContainer.viewContext
+        var allCategories = [Category]()
+        context.performAndWait {
+            let data = try! context.fetch(Category.fetchRequest())
+            allCategories = data
+        }
+        return allCategories
+    }
+    
 }
 

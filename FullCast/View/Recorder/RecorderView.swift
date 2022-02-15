@@ -26,7 +26,7 @@ struct RecorderView: View {
     }
     
     private var listView : some View {
-        ScrollView(showsIndicators : false) {
+        List {
             ForEach($recorderViewModel.recordingsList) { $recording in
                 RecordingCell(record: $recording, recorderViewModel: recorderViewModel) {
                     if recording.isPlaying {
@@ -35,12 +35,19 @@ struct RecorderView: View {
                         recorderViewModel.startPlaying(url : recording.audioURL, sliderDuration: recording.elapsedDuration)
                     }
                 }
+                .buttonStyle(PlainButtonStyle())
             }
+            .onDelete(perform: recorderViewModel.deleteRecordingOn)
             .onReceive(recorderViewModel.timer) { time in
                 if recorderViewModel.audioIsPlaying {
                     recorderViewModel.updateSlider()
                 }
             }
+        }
+        .listStyle(PlainListStyle())
+        .onAppear {
+            UITableViewCell.appearance().selectionStyle = .none
+            UITableView.appearance().separatorStyle = .none
         }
     }
     
@@ -85,6 +92,10 @@ struct RecorderView: View {
         } else {
             recorderViewModel.startRecording(on: selectedCategory)
         }
+    }
+    
+    private func performDelete(at offset : IndexSet) {
+        recorderViewModel.recordingsList.remove(atOffsets: offset)
     }
 }
 

@@ -18,6 +18,7 @@
 		88272F6327AFF30B000B2AAC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88272F6227AFF30B000B2AAC /* Extensions.swift */; };
 		884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643AE27B22CE400E5AAD4 /* RecordingCell.swift */; };
 		884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643B027B234B200E5AAD4 /* CategoryView.swift */; };
+		8862A92727BA19E300B0A9DF /* FullCastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8862A92627BA19E300B0A9DF /* FullCastTests.swift */; };
 		886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886874AC27AFB57700BF2692 /* CoreDataController.swift */; };
 		886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */; };
 		8872BABA27ACEF4200643352 /* RecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BAB927ACEF4200643352 /* RecorderView.swift */; };
@@ -34,6 +35,16 @@
 		88DFD8B527B1092C008E39B1 /* AlertDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DFD8B427B1092C008E39B1 /* AlertDetails.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8862A92827BA19E300B0A9DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 880849CE27ABBD310006EC4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 880849D527ABBD310006EC4F;
+			remoteInfo = FullCast;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		880849D627ABBD310006EC4F /* FullCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FullCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		880849D927ABBD310006EC4F /* FullCastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCastApp.swift; sourceTree = "<group>"; };
@@ -47,6 +58,8 @@
 		88272F6227AFF30B000B2AAC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		884643AE27B22CE400E5AAD4 /* RecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingCell.swift; sourceTree = "<group>"; };
 		884643B027B234B200E5AAD4 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		8862A92427BA19E200B0A9DF /* FullCastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FullCastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8862A92627BA19E300B0A9DF /* FullCastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCastTests.swift; sourceTree = "<group>"; };
 		886874AC27AFB57700BF2692 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		886874AF27AFB67900BF2692 /* FullCast.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullCast.xcdatamodel; sourceTree = "<group>"; };
 		8872BAB927ACEF4200643352 /* RecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderView.swift; sourceTree = "<group>"; };
@@ -71,6 +84,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8862A92127BA19E200B0A9DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				880849D827ABBD310006EC4F /* FullCast */,
+				8862A92527BA19E300B0A9DF /* FullCastTests */,
 				880849D727ABBD310006EC4F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				880849D627ABBD310006EC4F /* FullCast.app */,
+				8862A92427BA19E200B0A9DF /* FullCastTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,6 +187,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		8862A92527BA19E300B0A9DF /* FullCastTests */ = {
+			isa = PBXGroup;
+			children = (
+				8862A92627BA19E300B0A9DF /* FullCastTests.swift */,
+			);
+			path = FullCastTests;
+			sourceTree = "<group>";
+		};
 		8872BAB827ACEF1900643352 /* Recorder */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +260,24 @@
 			productReference = 880849D627ABBD310006EC4F /* FullCast.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8862A92327BA19E200B0A9DF /* FullCastTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8862A92C27BA19E300B0A9DF /* Build configuration list for PBXNativeTarget "FullCastTests" */;
+			buildPhases = (
+				8862A92027BA19E200B0A9DF /* Sources */,
+				8862A92127BA19E200B0A9DF /* Frameworks */,
+				8862A92227BA19E200B0A9DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8862A92927BA19E300B0A9DF /* PBXTargetDependency */,
+			);
+			name = FullCastTests;
+			productName = FullCastTests;
+			productReference = 8862A92427BA19E200B0A9DF /* FullCastTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -242,6 +290,10 @@
 				TargetAttributes = {
 					880849D527ABBD310006EC4F = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					8862A92327BA19E200B0A9DF = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 880849D527ABBD310006EC4F;
 					};
 				};
 			};
@@ -259,6 +311,7 @@
 			projectRoot = "";
 			targets = (
 				880849D527ABBD310006EC4F /* FullCast */,
+				8862A92327BA19E200B0A9DF /* FullCastTests */,
 			);
 		};
 /* End PBXProject section */
@@ -270,6 +323,13 @@
 			files = (
 				880849E127ABBD340006EC4F /* Preview Assets.xcassets in Resources */,
 				880849DE27ABBD340006EC4F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8862A92227BA19E200B0A9DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +366,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8862A92027BA19E200B0A9DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8862A92727BA19E300B0A9DF /* FullCastTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8862A92927BA19E300B0A9DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 880849D527ABBD310006EC4F /* FullCast */;
+			targetProxy = 8862A92827BA19E300B0A9DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		880849E727ABBD340006EC4F /* Debug */ = {
@@ -489,6 +565,42 @@
 			};
 			name = Release;
 		};
+		8862A92A27BA19E300B0A9DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vishwa.FullCastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FullCast.app/FullCast";
+			};
+			name = Debug;
+		};
+		8862A92B27BA19E300B0A9DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vishwa.FullCastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FullCast.app/FullCast";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -506,6 +618,15 @@
 			buildConfigurations = (
 				880849EA27ABBD340006EC4F /* Debug */,
 				880849EB27ABBD340006EC4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8862A92C27BA19E300B0A9DF /* Build configuration list for PBXNativeTarget "FullCastTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8862A92A27BA19E300B0A9DF /* Debug */,
+				8862A92B27BA19E300B0A9DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -26,15 +26,26 @@ struct CategoryView: View {
     }
     
     private var categoryList : some View {
-        List(categories) { category in
-            NavigationLink(destination: RecorderView(selectedCategory: category)) {
-                Text(category.wrappedCategoryName)
+        List {
+            ForEach(categories) { category in
+                NavigationLink(destination: RecorderView(selectedCategory: category)) {
+                    Text(category.wrappedCategoryName)
+                }
             }
+            .onDelete(perform: deleteCategory)
         }
     }
     
     private func newFolderButtonPressed() {
         categoryViewModel.showPrompt()
+    }
+    
+    private func deleteCategory(at offset: IndexSet) {
+        offset.forEach { index in
+            let category = categories[index]
+            CoreDataController.shared.viewContext.delete(category)
+        }
+        CoreDataController.shared.save()
     }
     
 }

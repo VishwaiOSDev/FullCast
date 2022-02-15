@@ -20,15 +20,7 @@ struct RecordingCell : View {
                     .font(.title)
                 Text(record.fileName)
             }
-            Slider(value: $record.elapsedDuration, in: 0...Float(record.duration), onEditingChanged: { didChanged in
-                if didChanged {
-                    recorderViewModel.stopPlaying(url: record.audioURL)
-                } else {
-                    recorderViewModel.startPlaying(url: record.audioURL, sliderDuration: record.elapsedDuration)
-                }
-            })
-                .accentColor(Color(UIColor(.yellow)))
-                .padding(.vertical, 4)
+            slider
             Button(action: action) {
                 Image(systemName: record.isPlaying ? "stop.fill" : "play.fill")
                     .foregroundColor(.white)
@@ -42,5 +34,16 @@ struct RecordingCell : View {
         .padding(.horizontal)
     }
     
+    private var slider : some View {
+        Slider(value: $record.elapsedDuration, in: 0...Float(record.duration), onEditingChanged: { didChanged in
+            if didChanged {
+                if recorderViewModel.audioIsPlaying {
+                    recorderViewModel.stopPlaying(url: record.audioURL)
+                }
+            }
+        })
+            .accentColor(Color(UIColor(.yellow)))
+            .padding(.vertical, 4)
+        
+    }
 }
-

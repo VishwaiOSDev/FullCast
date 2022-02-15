@@ -21,18 +21,28 @@ protocol Playable {
 
 final class RecorderViewModel : NSObject, ObservableObject {
     
-    @Published var recordingsList : [RecordDetails] = []
+    @Published var recordingsList : [RecordDetails] = [] {
+        didSet {
+            guard let safeRecording = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) else { return }
+            recordings = safeRecording
+        }
+    }
     @Published var isRecording = false
     @Published var showAlert = false
     @Published var alertDetails : AlertDetails?
+    private var recordings: [Recording] = []
+    private(set) var selectedCategory: Category!
     private(set) var audioIsPlaying = false
     private(set) var recorderModel = Recorder()
     private(set) var audioRecorder : AVAudioRecorder!
     private(set) var audioPlayer : AVAudioPlayer!
+    // Reuse this audioSession instead of recording session...
+    private(set) var audioSession : AVAudioSession = AVAudioSession.sharedInstance()
     private(set) var playingURL : URL?
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     
     func getStoredRecordings(for selectedCategory: Category) {
+        self.selectedCategory = selectedCategory
         guard let recordings = recorderModel.fetchAllStoredRecordings(of: selectedCategory) else { return }
         DispatchQueue.main.async {
             self.recordingsList = recordings
@@ -45,6 +55,15 @@ final class RecorderViewModel : NSObject, ObservableObject {
         }
     }
     
+    func deleteRecordingOn(_ indexSet : IndexSet) {
+        recordingsList.remove(atOffsets: indexSet)
+        indexSet.forEach { index in
+            let recording = recordings[index]
+            CoreDataController.shared.deleteRecording(recording: recording)
+        }
+        
+    }
+    
     private func showAlertMessage(title : String, message: String) {
         let alert = AlertDetails(alertTitle: title, alertMessage: message)
         DispatchQueue.main.async {
@@ -52,6 +71,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
             self.alertDetails = alert
         }
     }
+    
 }
 
 extension RecorderViewModel : Recordable {
@@ -59,10 +79,15 @@ extension RecorderViewModel : Recordable {
         let microphonePermission = setupRecordingSession()
         switch(microphonePermission) {
         case .undetermined:
-            showAlertMessage(
-                title: "Unable to access the Microphone",
-                message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
-            )
+            audioSession.requestRecordPermission { permission in
+                if !permission {
+                    return self.showAlertMessage(
+                        title: "Unable to access the Microphone",
+                        message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
+                    )
+                }
+                self.startRecording(on: category)
+            }
         case .denied:
             showAlertMessage(
                 title: "Unable to access the Microphone",
@@ -160,7 +185,7 @@ extension RecorderViewModel {
             recorderModel.saveFileToCoreData(of: fileName,on: category)
             DispatchQueue.main.async {
                 withAnimation {
-                    self.isRecording = true                    
+                    self.isRecording = true
                 }
             }
         } catch {
