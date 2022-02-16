@@ -33,7 +33,7 @@ struct Recorder {
             let audioURL = URL(fileURLWithPath: path).appendingPathComponent(recording.fileName!)
             if let durationOfAudio = getDurationOfEachAudio(of: audioURL) {
                 recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio, elapsedDuration: 0.0))
-                print("This is duration of each audio \(Float(durationOfAudio))")
+//                print("This is duration of each audio \(Float(durationOfAudio))")
             }
         }
         return recordingDetails

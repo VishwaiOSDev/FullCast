@@ -36,8 +36,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
     private(set) var recorderModel = Recorder()
     private(set) var audioRecorder : AVAudioRecorder!
     private(set) var audioPlayer : AVAudioPlayer!
-    // Reuse this audioSession instead of recording session...
-    private(set) var audioSession : AVAudioSession = AVAudioSession.sharedInstance()
+    private(set) var audioSession : AVAudioSession = AVAudioSession.sharedInstance() // Reuse this audioSession instead of recording session...
     private(set) var playingURL : URL?
     var timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     
@@ -47,6 +46,12 @@ final class RecorderViewModel : NSObject, ObservableObject {
         DispatchQueue.main.async {
             self.recordingsList = recordings
         }
+    }
+    
+    func updateSlider() {
+        guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
+        recordingsList[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
+        print("Elasped Time: ", audioPlayer.currentTime)
     }
     
     func openSettings() {
@@ -61,17 +66,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
             let recording = recordings[index]
             CoreDataController.shared.deleteRecording(recording: recording)
         }
-        
     }
-    
-    private func showAlertMessage(title : String, message: String) {
-        let alert = AlertDetails(alertTitle: title, alertMessage: message)
-        DispatchQueue.main.async {
-            self.showAlert = true
-            self.alertDetails = alert
-        }
-    }
-    
 }
 
 extension RecorderViewModel : Recordable {
@@ -112,6 +107,9 @@ extension RecorderViewModel : Recordable {
 
 extension RecorderViewModel : Playable {
     func startPlaying(id: UUID, sliderDuration : Double) {
+        if audioIsPlaying {
+            stopThePlayingAudio()
+        }
         self.timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
         let indexOfRecording = getIndexOfRecording(id)
         recordingsList[indexOfRecording].isPlaying = true
@@ -128,12 +126,6 @@ extension RecorderViewModel : Playable {
         }
     }
     
-    func updateSlider() {
-        guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
-        recordingsList[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
-        print("Elasped Time: ", audioPlayer.currentTime)
-    }
-    
     func stopPlaying(id : UUID) {
         timer.upstream.connect().cancel()
         audioIsPlaying = false
@@ -146,10 +138,6 @@ extension RecorderViewModel : Playable {
         }
     }
     
-    func getIndexOfRecording(_ id: UUID) -> Array.Index {
-        guard let index = recordingsList.firstIndex(where: {$0.id == id}) else { return -1 }
-        return index
-    }
 }
 
 extension RecorderViewModel : AVAudioPlayerDelegate {
@@ -193,5 +181,25 @@ extension RecorderViewModel {
             fatalError("Failed to play the recording \(error.localizedDescription)")
         }
     }
+    
+    private func getIndexOfRecording(_ id: UUID) -> Array.Index {
+        guard let index = recordingsList.firstIndex(where: {$0.id == id}) else { return -1 }
+        return index
+    }
+    
+    private func showAlertMessage(title : String, message: String) {
+        let alert = AlertDetails(alertTitle: title, alertMessage: message)
+        DispatchQueue.main.async {
+            self.showAlert = true
+            self.alertDetails = alert
+        }
+    }
+    
+    private func stopThePlayingAudio() {
+        guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
+        recordingsList[indexOfPlayingAudio].isPlaying = false
+    }
 }
+
+
 

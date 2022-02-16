@@ -46,7 +46,7 @@ struct RecordingCell : View {
     }
     
     private var slider : some View {
-        Slider(value: $record.elapsedDuration, in: 0...Double(record.duration), onEditingChanged: { didChanged in
+        Slider(value: $record.elapsedDuration, in: 0.0...record.duration, onEditingChanged: { didChanged in
             if didChanged {
                 if recorderViewModel.audioIsPlaying {
                     recorderViewModel.stopPlaying(id: record.id)
@@ -57,7 +57,8 @@ struct RecordingCell : View {
     
     private var durationView : some View {
         Text("\(timeString(time:TimeInterval(record.elapsedDuration)))")
-            .font(.callout)
+            .font(.caption)
+            .fontWeight(.medium)
             .padding(.horizontal, 4)
             .frame(width: 55)
     }
