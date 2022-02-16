@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoryView: View {
     
     @StateObject private var categoryViewModel = CategoryViewModel()
-    @FetchRequest(entity: Category.entity(), sortDescriptors: []) var categories : FetchedResults<Category>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Category.categoryName, ascending: true)]) var categories : FetchedResults<Category>
     
     var body: some View {
         NavigationView {

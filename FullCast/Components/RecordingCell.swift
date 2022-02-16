@@ -14,36 +14,57 @@ struct RecordingCell : View {
     var action : () -> ()
     
     var body : some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
-                Image(systemName : "headphones.circle.fill")
-                    .font(.title)
                 Text(record.fileName)
             }
-            slider
-            Button(action: action) {
-                Image(systemName: record.isPlaying ? "stop.fill" : "play.fill")
-                    .foregroundColor(.white)
-                    .font(.system(size:30))
-            }
+            controller
         }
-        .padding()
-        .frame(maxWidth : .infinity)
-        .background(Color(UIColor(red: 0.34, green: 0.34, blue: 0.34, alpha: 1.00)))
-        .cornerRadius(12)
-        .padding(.horizontal)
+        .padding(.vertical, 4)
+    }
+    
+    private var controller : some View {
+        ZStack {
+            Capsule()
+                .foregroundColor(Color(UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.00)))
+            HStack(alignment: .center, spacing: 6) {
+                playStopButton
+                slider
+                    .accentColor(Color(UIColor(.yellow)))
+                    .padding(.vertical, 4)
+                durationView
+            }.padding(8)
+        }
+    }
+    
+    private var playStopButton : some View {
+        Button(action: action) {
+            Image(systemName: record.isPlaying ? "stop.circle" : "play.circle")
+                .foregroundColor(.white)
+                .font(.system(size:30))
+        }
     }
     
     private var slider : some View {
-        Slider(value: $record.elapsedDuration, in: 0...Float(record.duration), onEditingChanged: { didChanged in
+        Slider(value: $record.elapsedDuration, in: 0...Double(record.duration), onEditingChanged: { didChanged in
             if didChanged {
                 if recorderViewModel.audioIsPlaying {
-                    recorderViewModel.stopPlaying(url: record.audioURL)
+                    recorderViewModel.stopPlaying(id: record.id)
                 }
             }
         })
-            .accentColor(Color(UIColor(.yellow)))
-            .padding(.vertical, 4)
-        
+    }
+    
+    private var durationView : some View {
+        Text("\(timeString(time:TimeInterval(record.elapsedDuration)))")
+            .font(.callout)
+            .padding(.horizontal, 4)
+            .frame(width: 55)
+    }
+    
+    func timeString(time: TimeInterval) -> String {
+        let minute = Int(time) / 60 % 60
+        let second = Int(time) % 60
+        return String(format: "%02i:%02i", minute, second)
     }
 }

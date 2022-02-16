@@ -18,7 +18,6 @@ final class CoreDataController {
     private init() {
         container = NSPersistentContainer(name: "FullCast")
         container.loadPersistentStores { description, error in
-            self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             if let error = error {
                 fatalError("Error \(error.localizedDescription)")
             }
@@ -26,10 +25,14 @@ final class CoreDataController {
     }
     
     func save() {
-        do {
-            try viewContext.save()
-        } catch {
-            print("Error saving data in CoreData", error.localizedDescription)
+        self.container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            }
+            catch {
+                print("Error saving data in CoreData", error.localizedDescription)
+            }
         }
     }
     

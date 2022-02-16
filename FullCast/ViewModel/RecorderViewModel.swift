@@ -15,8 +15,8 @@ protocol Recordable {
 }
 
 protocol Playable {
-    func startPlaying(url : URL, sliderDuration: Float)
-    func stopPlaying(url : URL)
+    func startPlaying(id: UUID, sliderDuration: Double)
+    func stopPlaying(id : UUID)
 }
 
 final class RecorderViewModel : NSObject, ObservableObject {
@@ -39,7 +39,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
     // Reuse this audioSession instead of recording session...
     private(set) var audioSession : AVAudioSession = AVAudioSession.sharedInstance()
     private(set) var playingURL : URL?
-    let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
+    var timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     
     func getStoredRecordings(for selectedCategory: Category) {
         self.selectedCategory = selectedCategory
@@ -111,35 +111,31 @@ extension RecorderViewModel : Recordable {
 }
 
 extension RecorderViewModel : Playable {
-    func startPlaying(url : URL, sliderDuration : Float) {
+    func startPlaying(id: UUID, sliderDuration : Double) {
+        self.timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
+        let indexOfRecording = getIndexOfRecording(id)
+        recordingsList[indexOfRecording].isPlaying = true
+        playingURL = recordingsList[indexOfRecording].audioURL
         audioIsPlaying = true
-        playingURL = url
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf : url)
+            audioPlayer = try AVAudioPlayer(contentsOf : playingURL!)
             audioPlayer.currentTime = Double(sliderDuration)
             audioPlayer.delegate = self
             audioPlayer.prepareToPlay()
             audioPlayer.play()
-            for i in recordingsList.indices {
-                if recordingsList[i].audioURL == playingURL {
-                    recordingsList[i].isPlaying = true
-                    break
-                }
-            }
         } catch {
             print("Error start playing this audio \(error.localizedDescription)")
         }
     }
     
     func updateSlider() {
-        for i in recordingsList.indices {
-            if recordingsList[i].isPlaying  {
-                recordingsList[i].elapsedDuration = Float(audioPlayer.currentTime)
-            }
-        }
+        guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
+        recordingsList[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
+        print("Elasped Time: ", audioPlayer.currentTime)
     }
     
-    func stopPlaying(url : URL) {
+    func stopPlaying(id : UUID) {
+        timer.upstream.connect().cancel()
         audioIsPlaying = false
         audioPlayer.stop()
         for i in recordingsList.indices {
@@ -148,6 +144,11 @@ extension RecorderViewModel : Playable {
                 break
             }
         }
+    }
+    
+    func getIndexOfRecording(_ id: UUID) -> Array.Index {
+        guard let index = recordingsList.firstIndex(where: {$0.id == id}) else { return -1 }
+        return index
     }
 }
 

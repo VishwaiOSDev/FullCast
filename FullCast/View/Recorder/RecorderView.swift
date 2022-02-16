@@ -27,24 +27,26 @@ struct RecorderView: View {
     
     private var listView : some View {
         List {
-            ForEach($recorderViewModel.recordingsList) { $recording in
+            ForEach($recorderViewModel.recordingsList, id: \.id) { $recording in
                 RecordingCell(record: $recording, recorderViewModel: recorderViewModel) {
                     if recording.isPlaying {
-                        recorderViewModel.stopPlaying(url : recording.audioURL)
+                        recorderViewModel.stopPlaying(id : recording.id)
                     } else {
-                        recorderViewModel.startPlaying(url : recording.audioURL, sliderDuration: recording.elapsedDuration)
+                        recorderViewModel.startPlaying(id: recording.id, sliderDuration: recording.elapsedDuration)
                     }
                 }
                 .buttonStyle(PlainButtonStyle())
             }
             .onDelete(perform: recorderViewModel.deleteRecordingOn)
-            .onReceive(recorderViewModel.timer) { time in
+            .onReceive(recorderViewModel.timer) { _ in
                 if recorderViewModel.audioIsPlaying {
                     recorderViewModel.updateSlider()
+                } else {
+                    recorderViewModel.timer.upstream.connect().cancel()
                 }
             }
         }
-        .listStyle(PlainListStyle())
+        .listStyle(GroupedListStyle())
         .onAppear {
             UITableViewCell.appearance().selectionStyle = .none
             UITableView.appearance().separatorStyle = .none

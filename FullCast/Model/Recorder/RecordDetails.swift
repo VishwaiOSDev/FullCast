@@ -13,6 +13,6 @@ struct RecordDetails : Identifiable {
     var audioURL : URL
     var createdAt : Date
     var isPlaying : Bool = false
-    var duration : Float = 0.0
-    var elapsedDuration : Float = 0.0
+    var duration : Double
+    var elapsedDuration : Double
 }

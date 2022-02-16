@@ -32,16 +32,17 @@ struct Recorder {
         for recording in recordings {
             let audioURL = URL(fileURLWithPath: path).appendingPathComponent(recording.fileName!)
             if let durationOfAudio = getDurationOfEachAudio(of: audioURL) {
-                recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio))
+                recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio, elapsedDuration: 0.0))
+                print("This is duration of each audio \(Float(durationOfAudio))")
             }
         }
         return recordingDetails
     }
     
-    private mutating func getDurationOfEachAudio(of url : URL) -> Float? {
+    private mutating func getDurationOfEachAudio(of url : URL) -> Double? {
         do {
             player = try AVAudioPlayer(contentsOf: url)
-            return Float(player.duration)
+            return player.duration
         } catch {
             print(error.localizedDescription)
             return nil
