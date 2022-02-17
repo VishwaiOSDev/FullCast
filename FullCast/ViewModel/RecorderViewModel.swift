@@ -51,6 +51,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
     func updateSlider() {
         guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
         recordingsList[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
+        print("Current Duration \(audioPlayer.currentTime) :--: \(recordingsList[indexOfPlayingAudio].elapsedDuration)")
     }
     
     func openSettings() {
@@ -109,7 +110,7 @@ extension RecorderViewModel : Playable {
         if audioIsPlaying {
             stopThePlayingAudio()
         }
-        self.timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
+        self.timer = timer.upstream.autoconnect()
         let indexOfRecording = getIndexOfRecording(id)
         recordingsList[indexOfRecording].isPlaying = true
         playingURL = recordingsList[indexOfRecording].audioURL
@@ -129,25 +130,19 @@ extension RecorderViewModel : Playable {
         timer.upstream.connect().cancel()
         audioIsPlaying = false
         audioPlayer.stop()
-        for i in recordingsList.indices {
-            if recordingsList[i].audioURL == playingURL {
-                recordingsList[i].isPlaying = false
-                break
-            }
-        }
+        let index = getIndexOfRecording(id)
+        recordingsList[index].isPlaying = false
     }
     
 }
 
 extension RecorderViewModel : AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        timer.upstream.connect().cancel()
         audioIsPlaying = false
-        for i in recordingsList.indices {
-            if recordingsList[i].audioURL == playingURL {
-                recordingsList[i].isPlaying = false
-                break
-            }
-        }
+        print("Playing URL \(playingURL!) and player \(player.url!)"  )
+        guard let index = recordingsList.firstIndex(where: {$0.audioURL == player.url!}) else { return }
+        recordingsList[index].isPlaying = false
     }
 }
 
@@ -164,7 +159,7 @@ extension RecorderViewModel {
     }
     
     private func recordAudio(on category : Category) {
-        let fileName = "\(category.wrappedCategoryName).m4a"
+        let fileName = "\(category.wrappedCategoryName) \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
         let path = URL.documents.appendingPathComponent(fileName)
         do {
             audioRecorder = try AVAudioRecorder(url: path, settings: Constants.settings)
@@ -198,6 +193,7 @@ extension RecorderViewModel {
         guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
         recordingsList[indexOfPlayingAudio].isPlaying = false
     }
+    
 }
 
 

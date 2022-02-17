@@ -42,6 +42,7 @@ struct RecorderView: View {
                 if recorderViewModel.audioIsPlaying {
                     recorderViewModel.updateSlider()
                 } else {
+                    print("Timer Cancelled onReceive")
                     recorderViewModel.timer.upstream.connect().cancel()
                 }
             }

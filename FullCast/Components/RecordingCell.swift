@@ -17,7 +17,7 @@ struct RecordingCell : View {
         VStack(alignment: .leading) {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(record.fileName)
+                    Text(String(record.fileName.dropLast(29)))
                     Text(record.createdAt.toString(dateFormat: "dd-MMM-YYYY"))
                         .font(.caption)
                         .foregroundColor(.gray)
