@@ -16,11 +16,27 @@ struct RecordingCell : View {
     var body : some View {
         VStack(alignment: .leading) {
             HStack {
-                Text(record.fileName)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(record.fileName)
+                    Text(record.createdAt.toString(dateFormat: "dd-MMM-YYYY"))
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+                Spacer()
+                Button(action: openActionSheet) {
+                    Image(systemName: "ellipsis.circle")
+                        .font(.title2)
+                        .foregroundColor(Color(UIColor.systemYellow))
+                }
             }
             controller
         }
         .padding(.vertical, 4)
+    }
+    
+    private func openActionSheet() {
+        let activityVC = UIActivityViewController(activityItems: [record.audioURL], applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
     
     private var controller : some View {

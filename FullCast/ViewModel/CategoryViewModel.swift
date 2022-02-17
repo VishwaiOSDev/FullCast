@@ -13,6 +13,11 @@ struct Folder : Identifiable {
 }
 
 final class CategoryViewModel: ObservableObject {
+    
+    init() {
+        UITextField.appearance().tintColor = .systemYellow
+    }
+    
     @Published var folders : [Folder] = []
     private var alert : UIAlertController?
     private var categoryModel = CategoryModel()
@@ -33,12 +38,13 @@ extension CategoryViewModel {
             self.categoryModel.saveFolderNameInCoreData(folderName: textField.text!)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+        cancelAction.setValue(UIColor.systemYellow, forKey: "titleTextColor")
         saveAction.isEnabled = false
         alert?.addAction(saveAction)
         alert?.addAction(cancelAction)
         presentAlert(of : alert!)
     }
-        
+    
     @objc private func alertTextFieldDidChange(_ sender: UITextField) {
         alert?.actions[0].isEnabled = sender.text!.count > 0
     }

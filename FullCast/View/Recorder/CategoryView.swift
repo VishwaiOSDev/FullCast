@@ -12,12 +12,17 @@ struct CategoryView: View {
     @StateObject private var categoryViewModel = CategoryViewModel()
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Category.categoryName, ascending: true)]) var categories : FetchedResults<Category>
     
+    init() {
+        UINavigationBar.appearance().tintColor = .systemYellow
+    }
+    
     var body: some View {
         NavigationView {
             categoryList
                 .toolbar {
                     Button(action: newFolderButtonPressed) {
                         Image(systemName: "folder.badge.plus")
+                            .foregroundColor(Color(UIColor.systemYellow))
                     }
                 }
                 .navigationTitle("FullCast")

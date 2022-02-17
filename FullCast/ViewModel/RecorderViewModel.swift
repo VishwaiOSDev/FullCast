@@ -51,7 +51,6 @@ final class RecorderViewModel : NSObject, ObservableObject {
     func updateSlider() {
         guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
         recordingsList[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
-        print("Elasped Time: ", audioPlayer.currentTime)
     }
     
     func openSettings() {
@@ -165,7 +164,7 @@ extension RecorderViewModel {
     }
     
     private func recordAudio(on category : Category) {
-        let fileName = "FullCast: \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
+        let fileName = "\(category.wrappedCategoryName).m4a"
         let path = URL.documents.appendingPathComponent(fileName)
         do {
             audioRecorder = try AVAudioRecorder(url: path, settings: Constants.settings)
