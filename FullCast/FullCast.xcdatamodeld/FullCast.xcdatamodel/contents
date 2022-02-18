@@ -18,6 +18,6 @@
     </entity>
     <elements>
         <element name="Category" positionX="1436.48193359375" positionY="-1053.346618652344" width="128" height="74"/>
-        <element name="Recording" positionX="1667.399536132812" positionY="-1069.844207763672" width="128" height="103"/>
+        <element name="Recording" positionX="1667.399536132812" positionY="-1069.844207763672" width="128" height="89"/>
     </elements>
 </model>

@@ -35,6 +35,7 @@ struct RecorderView: View {
                         recorderViewModel.startPlaying(id: recording.id, sliderDuration: recording.elapsedDuration)
                     }
                 }
+                .frame(height: 150)
                 .buttonStyle(PlainButtonStyle())
             }
             .onDelete(perform: recorderViewModel.deleteRecordingOn)

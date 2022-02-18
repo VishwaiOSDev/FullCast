@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RecordingCell : View {
     
+    @State private var date = Date()
+    @State private var showDate = false
     @Binding var record : RecordDetails
     @ObservedObject var recorderViewModel : RecorderViewModel
     var action : () -> ()
@@ -23,15 +25,36 @@ struct RecordingCell : View {
                         .foregroundColor(.gray)
                 }
                 Spacer()
-                Button(action: openActionSheet) {
-                    Image(systemName: "ellipsis.circle")
-                        .font(.title2)
-                        .foregroundColor(Color(UIColor.systemYellow))
+                VStack {
+                    HStack {
+                        Button(action : openCalender) {
+                            Image(systemName: "calendar")
+                                .font(.title2)
+                                .foregroundColor(Color(UIColor.systemYellow))
+                        }
+                        Button(action: openActionSheet) {
+                            Image(systemName: "ellipsis.circle")
+                                .font(.title2)
+                                .foregroundColor(Color(UIColor.systemYellow))
+                        }
+                    }
                 }
             }
             controller
         }
         .padding(.vertical, 4)
+    }
+    
+    private func openCalender() {
+        withAnimation {
+            showDate.toggle()
+        }
+    }
+    
+    private func closeCalender() {
+        withAnimation {
+            showDate = false
+        }
     }
     
     private func openActionSheet() {
@@ -40,16 +63,35 @@ struct RecordingCell : View {
     }
     
     private var controller : some View {
-        ZStack {
-            Capsule()
-                .foregroundColor(Color(UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.00)))
-            HStack(alignment: .center, spacing: 6) {
-                playStopButton
-                slider
-                    .accentColor(Color(UIColor(.yellow)))
-                    .padding(.vertical, 4)
-                durationView
-            }.padding(8)
+        VStack {
+            ZStack {
+                RoundedRectangle(cornerRadius: showDate ? 30 : 12)
+                    .foregroundColor(Color(UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.00)))
+                HStack(alignment: .center, spacing: 6) {
+                    playStopButton
+                    slider
+                        .accentColor(Color(UIColor(.yellow)))
+                        .padding(.vertical, 4)
+                    durationView
+                }.padding(8)
+            }
+            if showDate {
+                HStack {
+                    DatePicker("Set remainder:",selection: $date, in: Date()..., displayedComponents: [.date, .hourAndMinute])
+                        .font(.subheadline)
+                        .datePickerStyle(.compact)
+                        .labelsHidden()
+                    Spacer()
+//                    Button(action: closeCalender) {
+//                        Text("Cancel")
+//                    }
+                    Button(action: openCalender) {
+                        Text("Done")
+                            .foregroundColor(Color(UIColor.systemYellow))
+                            .bold()
+                    }
+                }
+            }
         }
     }
     
