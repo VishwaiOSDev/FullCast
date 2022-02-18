@@ -67,6 +67,14 @@ final class RecorderViewModel : NSObject, ObservableObject {
             CoreDataController.shared.deleteRecording(recording: recording)
         }
     }
+    
+    func setRemainderOfRecording(at date: Date, for id: UUID) {
+        CoreDataController.shared.updateReminderForRecording(at: id, for: date)
+        let index = getIndexOfRecording(id)
+        withAnimation {
+            recordingsList[index].reminderEnabled = true
+        }
+    }
 }
 
 extension RecorderViewModel : Recordable {

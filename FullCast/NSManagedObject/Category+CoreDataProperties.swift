@@ -2,7 +2,7 @@
 //  Category+CoreDataProperties.swift
 //  FullCast
 //
-//  Created by Vishwa  R on 08/02/22.
+//  Created by Vishwa  R on 18/02/22.
 //
 //
 
@@ -11,19 +11,19 @@ import CoreData
 
 
 extension Category {
-    
+
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Category> {
         return NSFetchRequest<Category>(entityName: "Category")
     }
-    
-    @NSManaged public var id: UUID?
+
     @NSManaged public var categoryName: String?
+    @NSManaged public var id: UUID?
     @NSManaged public var toRecording: NSSet?
     
     public var wrappedCategoryName : String {
-        categoryName ?? "Unknown"
-    }
-    
+            categoryName ?? "Unknown"
+        }
+        
     public var recordingArray: [Recording] {
         let set = toRecording as? Set<Recording> ?? []
         
@@ -32,26 +32,26 @@ extension Category {
         }
         
     }
-    
+
 }
 
 // MARK: Generated accessors for toRecording
 extension Category {
-    
+
     @objc(addToRecordingObject:)
     @NSManaged public func addToToRecording(_ value: Recording)
-    
+
     @objc(removeToRecordingObject:)
     @NSManaged public func removeFromToRecording(_ value: Recording)
-    
+
     @objc(addToRecording:)
     @NSManaged public func addToToRecording(_ values: NSSet)
-    
+
     @objc(removeToRecording:)
     @NSManaged public func removeFromToRecording(_ values: NSSet)
-    
+
 }
 
 extension Category : Identifiable {
-    
+
 }

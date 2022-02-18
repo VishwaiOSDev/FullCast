@@ -39,6 +39,7 @@ extension CategoryViewModel {
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
         cancelAction.setValue(UIColor.systemYellow, forKey: "titleTextColor")
+        saveAction.setValue(UIColor.systemYellow, forKey: "titleTextColor")
         saveAction.isEnabled = false
         alert?.addAction(saveAction)
         alert?.addAction(cancelAction)

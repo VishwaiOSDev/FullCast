@@ -36,6 +36,20 @@ final class CoreDataController {
         }
     }
     
+    func updateReminderForRecording(at id: UUID, for date: Date) {
+        let request: NSFetchRequest<Recording> = Recording.fetchRequest()
+        let idFiltering = NSPredicate(format: "id == %@", id as CVarArg)
+        request.predicate = idFiltering
+        do {
+            let recording = try viewContext.fetch(request)[0]
+            recording.reminderEnabled = true
+            recording.whenToRemind = date
+            save()
+        } catch {
+            print("Error while fetching record for updating remainder \(error.localizedDescription)")
+        }
+    }
+    
     func fetchAllRecordings(of selectedCategory: Category) -> [Recording]? {
         let request : NSFetchRequest<Recording> = Recording.fetchRequest()
         let cateogoryFiltering = NSPredicate(format: "toCategory.categoryName MATCHES %@", selectedCategory.wrappedCategoryName)
@@ -57,6 +71,17 @@ final class CoreDataController {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+//MARK: - UITesting CoreData Stack
 
 final class TestCoreDataStack {
     lazy var presistentContainer: NSPersistentContainer = {

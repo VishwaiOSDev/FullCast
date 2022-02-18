@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RecordingCell : View {
     
-    @State private var date = Date()
     @State private var showDate = false
     @Binding var record : RecordDetails
     @ObservedObject var recorderViewModel : RecorderViewModel
@@ -28,7 +27,7 @@ struct RecordingCell : View {
                 VStack {
                     HStack {
                         Button(action : openCalender) {
-                            Image(systemName: "calendar")
+                            Image(systemName: record.reminderEnabled ? "calendar.badge.clock" : "calendar")
                                 .font(.title2)
                                 .foregroundColor(Color(UIColor.systemYellow))
                         }
@@ -77,15 +76,15 @@ struct RecordingCell : View {
             }
             if showDate {
                 HStack {
-                    DatePicker("Set remainder:",selection: $date, in: Date()..., displayedComponents: [.date, .hourAndMinute])
+                    DatePicker("Set remainder:",selection: $record.reminderData, in: Date()..., displayedComponents: [.date, .hourAndMinute])
                         .font(.subheadline)
                         .datePickerStyle(.compact)
                         .labelsHidden()
                     Spacer()
-//                    Button(action: closeCalender) {
-//                        Text("Cancel")
-//                    }
-                    Button(action: openCalender) {
+                    //                    Button(action: closeCalender) {
+                    //                        Text("Cancel")
+                    //                    }
+                    Button(action: setRemainder) {
                         Text("Done")
                             .foregroundColor(Color(UIColor.systemYellow))
                             .bold()
@@ -93,6 +92,11 @@ struct RecordingCell : View {
                 }
             }
         }
+    }
+    
+    private func setRemainder() {
+        recorderViewModel.setRemainderOfRecording(at: record.reminderData, for: record.id)
+        closeCalender()
     }
     
     private var playStopButton : some View {

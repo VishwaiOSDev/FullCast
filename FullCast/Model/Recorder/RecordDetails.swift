@@ -15,4 +15,6 @@ struct RecordDetails : Identifiable {
     var isPlaying : Bool = false
     var duration : Double
     var elapsedDuration : Double
+    var reminderData: Date
+    var reminderEnabled: Bool
 }

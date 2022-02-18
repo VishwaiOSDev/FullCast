@@ -14,10 +14,12 @@
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="fileName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="reminderEnabled" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="whenToRemind" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="toCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="toRecording" inverseEntity="Category"/>
     </entity>
     <elements>
         <element name="Category" positionX="1436.48193359375" positionY="-1053.346618652344" width="128" height="74"/>
-        <element name="Recording" positionX="1667.399536132812" positionY="-1069.844207763672" width="128" height="89"/>
+        <element name="Recording" positionX="1667.399536132812" positionY="-1069.844207763672" width="128" height="119"/>
     </elements>
 </model>

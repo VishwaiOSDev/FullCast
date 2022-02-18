@@ -2,7 +2,7 @@
 //  Recording+CoreDataProperties.swift
 //  FullCast
 //
-//  Created by Vishwa  R on 08/02/22.
+//  Created by Vishwa  R on 18/02/22.
 //
 //
 
@@ -19,10 +19,12 @@ extension Recording {
     @NSManaged public var createdAt: Date?
     @NSManaged public var fileName: String?
     @NSManaged public var id: UUID?
+    @NSManaged public var whenToRemind: Date?
+    @NSManaged public var reminderEnabled: Bool
     @NSManaged public var toCategory: Category?
-    
+
     public var wrappedfileName : String {
-        fileName ?? "Unknown"
+            fileName ?? "Unknown"
     }
     
 }
