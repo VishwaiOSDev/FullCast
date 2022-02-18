@@ -54,12 +54,6 @@ final class RecorderViewModel : NSObject, ObservableObject {
         print("Current Duration \(audioPlayer.currentTime) :--: \(recordingsList[indexOfPlayingAudio].elapsedDuration)")
     }
     
-    func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            UIApplication.shared.open(url)
-        }
-    }
-    
     func deleteRecordingOn(_ indexSet : IndexSet) {
         recordingsList.remove(atOffsets: indexSet)
         indexSet.forEach { index in
@@ -68,12 +62,15 @@ final class RecorderViewModel : NSObject, ObservableObject {
         }
     }
     
-    func setRemainderOfRecording(at date: Date, for id: UUID) {
-        CoreDataController.shared.updateReminderForRecording(at: id, for: date)
-        let index = getIndexOfRecording(id)
-        withAnimation {
-            recordingsList[index].reminderEnabled = true
+    func setRemainderOfRecording(at date: Date, for id: UUID) -> Bool {
+        let updateStatus = CoreDataController.shared.updateReminderForRecording(at: id, for: date)
+        if updateStatus {
+            let index = getIndexOfRecording(id)
+            withAnimation {
+                recordingsList[index].reminderEnabled = true
+            }
         }
+        return updateStatus
     }
 }
 

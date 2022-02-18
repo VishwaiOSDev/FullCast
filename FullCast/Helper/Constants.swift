@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 struct Constants {
     //    static let settings = [
@@ -20,4 +21,11 @@ struct Constants {
         AVNumberOfChannelsKey: 1,
         AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
     ]
+    
+    static func openSettings() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
 }

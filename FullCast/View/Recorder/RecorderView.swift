@@ -64,7 +64,7 @@ struct RecorderView: View {
                     title: Text(alertDetails.alertTitle),
                     message: Text(alertDetails.alertMessage),
                     primaryButton: .cancel(Text("Cancel")),
-                    secondaryButton: .default(Text("Settings"), action: recorderViewModel.openSettings)
+                    secondaryButton: .default(Text("Settings"), action: Constants.openSettings)
                 )
             }
             .frame(maxWidth : .infinity)

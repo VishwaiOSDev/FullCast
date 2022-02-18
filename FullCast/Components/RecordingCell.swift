@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct RecordingCell : View {
     
-    @State private var showDate = false
     @Binding var record : RecordDetails
     @ObservedObject var recorderViewModel : RecorderViewModel
+    @EnvironmentObject var notificationViewModel: NotifcationViewModel
     var action : () -> ()
     
     var body : some View {
@@ -41,30 +42,22 @@ struct RecordingCell : View {
             }
             controller
         }
+        .alert(isPresented: $notificationViewModel.showNotificationAlert) {
+            guard let alertDetails = notificationViewModel.alertDetails else { fatalError("Failed to load alert details") }
+            return Alert(
+                title: Text(alertDetails.alertTitle),
+                message: Text(alertDetails.alertMessage),
+                primaryButton: .cancel(Text("Cancel")),
+                secondaryButton: .default(Text("Settings"), action: Constants.openSettings)
+            )
+        }
         .padding(.vertical, 4)
-    }
-    
-    private func openCalender() {
-        withAnimation {
-            showDate.toggle()
-        }
-    }
-    
-    private func closeCalender() {
-        withAnimation {
-            showDate = false
-        }
-    }
-    
-    private func openActionSheet() {
-        let activityVC = UIActivityViewController(activityItems: [record.audioURL], applicationActivities: nil)
-        UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
     
     private var controller : some View {
         VStack {
             ZStack {
-                RoundedRectangle(cornerRadius: showDate ? 30 : 12)
+                RoundedRectangle(cornerRadius: notificationViewModel.showDatePicker ? 30 : 12)
                     .foregroundColor(Color(UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.00)))
                 HStack(alignment: .center, spacing: 6) {
                     playStopButton
@@ -74,16 +67,13 @@ struct RecordingCell : View {
                     durationView
                 }.padding(8)
             }
-            if showDate {
+            if notificationViewModel.showDatePicker {
                 HStack {
                     DatePicker("Set remainder:",selection: $record.reminderData, in: Date()..., displayedComponents: [.date, .hourAndMinute])
                         .font(.subheadline)
                         .datePickerStyle(.compact)
                         .labelsHidden()
                     Spacer()
-                    //                    Button(action: closeCalender) {
-                    //                        Text("Cancel")
-                    //                    }
                     Button(action: setRemainder) {
                         Text("Done")
                             .foregroundColor(Color(UIColor.systemYellow))
@@ -91,19 +81,6 @@ struct RecordingCell : View {
                     }
                 }
             }
-        }
-    }
-    
-    private func setRemainder() {
-        recorderViewModel.setRemainderOfRecording(at: record.reminderData, for: record.id)
-        closeCalender()
-    }
-    
-    private var playStopButton : some View {
-        Button(action: action) {
-            Image(systemName: record.isPlaying ? "stop.circle" : "play.circle")
-                .foregroundColor(.white)
-                .font(.system(size:30))
         }
     }
     
@@ -123,6 +100,35 @@ struct RecordingCell : View {
             .fontWeight(.medium)
             .padding(.horizontal, 4)
             .frame(width: 55)
+    }
+    
+    private func setRemainder() {
+        let reminderStatus = recorderViewModel.setRemainderOfRecording(at: record.reminderData, for: record.id)
+        if reminderStatus {
+            notificationViewModel.scheduleNotifcation(for: record.reminderData, with: String(record.fileName.dropLast(4)))
+        }
+        closeTheCalendar()
+    }
+    
+    private var playStopButton : some View {
+        Button(action: action) {
+            Image(systemName: record.isPlaying ? "stop.circle" : "play.circle")
+                .foregroundColor(.white)
+                .font(.system(size:30))
+        }
+    }
+    
+    private func openCalender() {
+        notificationViewModel.requestAuthorization()
+    }
+    
+    private func closeTheCalendar() {
+        notificationViewModel.closeCalendar()
+    }
+    
+    private func openActionSheet() {
+        let activityVC = UIActivityViewController(activityItems: [record.audioURL], applicationActivities: nil)
+        UIApplication.shared.windows.first?.rootViewController?.present(activityVC, animated: true, completion: nil)
     }
     
     func timeString(time: TimeInterval) -> String {

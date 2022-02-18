@@ -16,6 +16,7 @@ struct FullCastApp: App {
         WindowGroup {
             CategoryView()
                 .environment(\.managedObjectContext, context)
+                .environmentObject(NotifcationViewModel())
         }
     }
 }
