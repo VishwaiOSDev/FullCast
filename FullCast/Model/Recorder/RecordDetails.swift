@@ -9,12 +9,15 @@ import Foundation
 
 struct RecordDetails : Identifiable {
     var id : UUID
-    var fileName : String
-    var audioURL : URL
-    var createdAt : Date
+    let fileName : String
+    let audioURL : URL
+    let createdAt : Date
     var isPlaying : Bool = false
-    var duration : Double
+    let duration : Double
     var elapsedDuration : Double
     var reminderData: Date
     var reminderEnabled: Bool
+    var showCalender: Bool = false
 }
+
+

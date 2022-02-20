@@ -7,27 +7,27 @@
 
 import Foundation
 import UserNotifications
-import SwiftUI
 
 final class NotifcationViewModel: ObservableObject {
     
-    @Published private(set) var notifications: [UNNotificationRequest] = []
-    @Published private(set) var showDatePicker: Bool = false
     @Published var showNotificationAlert = false
     @Published var alertDetails : AlertDetails?
+    private var notificationModel = Notification()
     
-    func requestAuthorization() {
+    func requestAuthorization(for remainderDate: Date, with body: String, id: UUID) {
+        let notificationDetails = notificationModel.getNotificationDetails(body, id, remainderDate)
+        setupNotifcationManager(with: notificationDetails)
+    }
+    
+    private func setupNotifcationManager(with details: Notification.Details) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             switch settings.authorizationStatus {
             case .notDetermined:
-                self.getNotificationPermission()
-            case .authorized:
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.showDatePicker.toggle()
-                    }
+                self.getNotificationPermission { success in
+                    self.scheduleNotifcation(for: details)
                 }
-                break
+            case .authorized:
+                self.scheduleNotifcation(for: details)
             case .denied:
                 self.showAlertMessage(
                     title: "Enable Notifications",
@@ -40,14 +40,13 @@ final class NotifcationViewModel: ObservableObject {
         }
     }
     
-    func scheduleNotifcation(for reminderDate: Date, with body: String) {
+    private func scheduleNotifcation(for details: Notification.Details) {
         let content = UNMutableNotificationContent()
-        content.title = "FullCast"
-        content.subtitle = "You got a remainder"
-        content.body = "Remainder for the recording \(body)"
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: reminderDate)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let request = UNNotificationRequest(identifier: "full_cast_remainder", content: content, trigger: trigger)
+        content.title = "\(details.title)"
+        content.subtitle = "\(details.subtitle)"
+        content.body = "Remainder for the recording \(details.body)"
+        let trigger = UNCalendarNotificationTrigger(dateMatching: details.reminderDate, repeats: false)
+        let request = UNNotificationRequest(identifier: "full_cast_remainder \(details.id)", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
                 print("Error adding request to the calender: \(error.localizedDescription)")
@@ -55,27 +54,15 @@ final class NotifcationViewModel: ObservableObject {
         }
     }
     
-    func closeCalendar() {
-        DispatchQueue.main.async {
-            withAnimation {
-                self.showDatePicker.toggle()
-            }
-        }
-    }
-    
-    private func getNotificationPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { isGranted, error in
+    private func getNotificationPermission(completionHandler: @escaping (_ success: Bool) -> ()) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if let error = error {
                 print("Error while getting notifcation permission \(error.localizedDescription)")
             }
-            DispatchQueue.main.async {
-                withAnimation {
-                    self.showDatePicker = isGranted
-                }
-            }
+            completionHandler(success)
         }
     }
-
+    
     private func showAlertMessage(title: String, message: String) {
         let alert = AlertDetails(alertTitle: title, alertMessage: message)
         DispatchQueue.main.async {
@@ -83,5 +70,4 @@ final class NotifcationViewModel: ObservableObject {
             self.alertDetails = alert
         }
     }
-    
 }

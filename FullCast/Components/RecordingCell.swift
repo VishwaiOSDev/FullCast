@@ -51,13 +51,14 @@ struct RecordingCell : View {
                 secondaryButton: .default(Text("Settings"), action: Constants.openSettings)
             )
         }
+        .frame(maxHeight: 150)
         .padding(.vertical, 4)
     }
     
     private var controller : some View {
         VStack {
             ZStack {
-                RoundedRectangle(cornerRadius: notificationViewModel.showDatePicker ? 30 : 12)
+                RoundedRectangle(cornerRadius: record.showCalender ? 30 : 12)
                     .foregroundColor(Color(UIColor(red: 0.18, green: 0.18, blue: 0.18, alpha: 1.00)))
                 HStack(alignment: .center, spacing: 6) {
                     playStopButton
@@ -67,7 +68,7 @@ struct RecordingCell : View {
                     durationView
                 }.padding(8)
             }
-            if notificationViewModel.showDatePicker {
+            if record.showCalender {
                 HStack {
                     DatePicker("Set remainder:",selection: $record.reminderData, in: Date()..., displayedComponents: [.date, .hourAndMinute])
                         .font(.subheadline)
@@ -103,27 +104,21 @@ struct RecordingCell : View {
     }
     
     private func setRemainder() {
-        let reminderStatus = recorderViewModel.setRemainderOfRecording(at: record.reminderData, for: record.id)
-        if reminderStatus {
-            notificationViewModel.scheduleNotifcation(for: record.reminderData, with: String(record.fileName.dropLast(4)))
-        }
-        closeTheCalendar()
+        notificationViewModel.requestAuthorization(for: record.reminderData, with: String(record.fileName.dropLast(4)), id: record.id)
     }
     
     private var playStopButton : some View {
         Button(action: action) {
-            Image(systemName: record.isPlaying ? "stop.circle" : "play.circle")
+            Image(systemName: record.isPlaying ? "pause.circle" : "play.circle")
                 .foregroundColor(.white)
                 .font(.system(size:30))
         }
     }
     
     private func openCalender() {
-        notificationViewModel.requestAuthorization()
-    }
-    
-    private func closeTheCalendar() {
-        notificationViewModel.closeCalendar()
+        withAnimation {
+            record.showCalender.toggle()
+        }
     }
     
     private func openActionSheet() {
@@ -135,5 +130,16 @@ struct RecordingCell : View {
         let minute = Int(time) / 60 % 60
         let second = Int(time) % 60
         return String(format: "%02i:%02i", minute, second)
+    }
+}
+
+
+struct RecordingCell_Previews : PreviewProvider {
+    static var previews: some View {
+        RecordingCell(record: .constant(RecordDetails(id: UUID(), fileName: "iOS Dev", audioURL: URL(fileURLWithPath: "url"), createdAt: Date(), duration: 1.0, elapsedDuration: 0.3, reminderData: Date(), reminderEnabled: true)), recorderViewModel: RecorderViewModel()) {
+        }
+        .preferredColorScheme(.dark)
+        .previewLayout(.sizeThatFits)
+        .environmentObject(NotifcationViewModel())
     }
 }
