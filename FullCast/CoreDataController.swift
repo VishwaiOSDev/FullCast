@@ -36,7 +36,7 @@ final class CoreDataController {
         }
     }
     
-    func updateReminderForRecording(at id: UUID, for date: Date) -> Bool {
+    func updateReminderForRecording(at id: UUID, for date: Date) {
         let request: NSFetchRequest<Recording> = Recording.fetchRequest()
         let idFiltering = NSPredicate(format: "id == %@", id as CVarArg)
         request.predicate = idFiltering
@@ -45,10 +45,8 @@ final class CoreDataController {
             recording.reminderEnabled = true
             recording.whenToRemind = date
             save()
-            return true
         } catch {
             print("Error while fetching record for updating remainder \(error.localizedDescription)")
-            return false
         }
     }
     

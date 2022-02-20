@@ -62,16 +62,16 @@ final class RecorderViewModel : NSObject, ObservableObject {
         }
     }
     
-    func setRemainderOfRecording(at date: Date, for id: UUID) -> Bool {
-        let updateStatus = CoreDataController.shared.updateReminderForRecording(at: id, for: date)
-        if updateStatus {
-            let index = getIndexOfRecording(id)
-            withAnimation {
-                recordingsList[index].reminderEnabled = true
-            }
-        }
-        return updateStatus
-    }
+//    func setRemainderOfRecording(at date: Date, for id: UUID) -> Bool {
+//        let updateStatus = CoreDataController.shared.updateReminderForRecording(at: id, for: date)
+//        if updateStatus {
+//            let index = getIndexOfRecording(id)
+//            withAnimation {
+//                recordingsList[index].reminderEnabled = true
+//            }
+//        }
+//        return updateStatus
+//    }
 }
 
 extension RecorderViewModel : Recordable {

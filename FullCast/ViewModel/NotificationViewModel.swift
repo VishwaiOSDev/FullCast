@@ -7,11 +7,13 @@
 
 import Foundation
 import UserNotifications
+import SwiftUI
 
 final class NotifcationViewModel: ObservableObject {
     
     @Published var showNotificationAlert = false
     @Published var alertDetails : AlertDetails?
+    @Published var notifcations: [UNNotificationRequest]?
     private var notificationModel = Notification()
     
     func requestAuthorization(for remainderDate: Date, with body: String, id: UUID) {
@@ -33,9 +35,11 @@ final class NotifcationViewModel: ObservableObject {
                     title: "Enable Notifications",
                     message: "To enable access, go to Settings > Privacy > Notifcation and turn on Microphone access for this app."
                 )
-                break
             default:
-                print("Default error..")
+                self.showAlertMessage(
+                    title: "Enable Notifications",
+                    message: "To enable access, go to Settings > Privacy > Notifcation and turn on Microphone access for this app."
+                )
             }
         }
     }
@@ -51,6 +55,7 @@ final class NotifcationViewModel: ObservableObject {
             if let error = error {
                 print("Error adding request to the calender: \(error.localizedDescription)")
             }
+            CoreDataController.shared.updateReminderForRecording(at: details.id, for: details.notificationDate!)
         }
     }
     

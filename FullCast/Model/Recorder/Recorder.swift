@@ -32,7 +32,7 @@ struct Recorder {
         for recording in recordings {
             let audioURL = URL(fileURLWithPath: path).appendingPathComponent(recording.fileName!)
             if let durationOfAudio = getDurationOfEachAudio(of: audioURL) {
-                recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio, elapsedDuration: 0.0, reminderData: recording.whenToRemind ?? Date() , reminderEnabled: recording.reminderEnabled))
+                recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio, elapsedDuration: 0.0, reminderDate: recording.whenToRemind ?? Date() , reminderEnabled: recording.reminderEnabled))
             }
         }
         return recordingDetails
