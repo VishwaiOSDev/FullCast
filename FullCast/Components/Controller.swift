@@ -9,13 +9,8 @@ import SwiftUI
 
 struct Controller: View {
     
-    func didNotificationAddedToDatabase(id: UUID) {
-        print("This is the ID \(id)")
-    }
-    
     @Binding var record: RecordDetails
     @ObservedObject var recorderViewModel: RecorderViewModel
-//    @EnvironmentObject var notificationViewModel: NotifcationViewModel
     var action: () -> ()
     
     var body: some View {

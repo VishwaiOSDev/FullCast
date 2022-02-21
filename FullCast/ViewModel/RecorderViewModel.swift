@@ -8,6 +8,7 @@
 import AVFoundation
 import CoreData
 import SwiftUI
+import UserNotifications
 
 protocol Recordable {
     func startRecording(on category : Category)
@@ -33,13 +34,12 @@ final class RecorderViewModel : NSObject, ObservableObject {
     private var recordings: [Recording] = []
     private(set) var selectedCategory: Category!
     private(set) var audioIsPlaying = false
-    private(set) var recorderModel = Recorder()
     private(set) var audioRecorder : AVAudioRecorder!
     private(set) var audioPlayer : AVAudioPlayer!
     private(set) var audioSession : AVAudioSession = AVAudioSession.sharedInstance() // Reuse this audioSession instead of recording session...
     private(set) var playingURL : URL?
+    private(set) var recorderModel = Recorder()
     var timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
-    private var notificationModel = Notification()
     
     func getStoredRecordings(for selectedCategory: Category) {
         self.selectedCategory = selectedCategory
@@ -204,20 +204,19 @@ extension RecorderViewModel {
 extension RecorderViewModel {
     
     func requestAuthorization(for remainderDate: Date, with body: String, id: UUID) {
-        let notificationDetails = notificationModel.getNotificationDetails(body, id, remainderDate)
-        setupNotifcationManager(with: notificationDetails)
+        setupNotifcationManager(on: remainderDate, body: body, id: id)
     }
     
-    private func setupNotifcationManager(with details: Notification.Details) {
+    private func setupNotifcationManager(on date: Date, body: String, id: UUID) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             switch settings.authorizationStatus {
             case .notDetermined:
                 self.getNotificationPermission { success in
                     guard success else { return }
-                    self.scheduleNotifcation(for: details)
+                    self.scheduleNotifcation(for: date, with: body, id: id)
                 }
             case .authorized:
-                self.scheduleNotifcation(for: details)
+                self.scheduleNotifcation(for: date, with: body, id: id)
             case .denied:
                 self.showAlertMessage(
                     title: "Enable Notifications",
@@ -232,22 +231,23 @@ extension RecorderViewModel {
         }
     }
     
-    private func scheduleNotifcation(for details: Notification.Details) {
+    private func scheduleNotifcation(for remainderDate: Date, with body: String, id: UUID) {
         let content = UNMutableNotificationContent()
-        content.title = "\(details.title)"
-        content.subtitle = "\(details.subtitle)"
-        content.body = "Remainder for the recording \(details.body)"
-        let trigger = UNCalendarNotificationTrigger(dateMatching: details.reminderDate, repeats: false)
-        let request = UNNotificationRequest(identifier: "full_cast_remainder \(details.id)", content: content, trigger: trigger)
+        content.title = "FullCast"
+        content.subtitle = "You got an remainder"
+        content.body = "Remainder for the recording \(body)"
+        let remainderDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: remainderDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: remainderDateComponents, repeats: false)
+        let request = UNNotificationRequest(identifier: "full_cast_remainder \(id.uuidString)", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { [weak self] error in
             if let error = error {
                 print("Error adding request to the calender: \(error.localizedDescription)")
             } else {
-                guard let notificationStatus = self?.notificationModel.saveNotificationToCoreDate(for: details) else { return }
-                if notificationStatus {
-                    self?.setRemainderOfRecording(for: details.id)
+                let coreDataStatus = CoreDataController.shared.updateReminderForRecording(at: id, for: remainderDate)
+                if coreDataStatus {
+                    self?.setRemainderOfRecording(for: id)
                 } else {
-                    print("Failed to Store Notification Details")
+                    print("Failed to store data in CoreData...")
                 }
             }
         }

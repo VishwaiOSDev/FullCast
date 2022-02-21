@@ -44,7 +44,7 @@ struct RecordingCell : View {
         .frame(maxHeight: 150)
         .padding(.vertical, 4)
     }
-        
+    
     private func openCalender() {
         withAnimation {
             record.showCalender.toggle()

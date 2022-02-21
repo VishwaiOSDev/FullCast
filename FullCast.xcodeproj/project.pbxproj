@@ -16,7 +16,6 @@
 		880849F627ABED110006EC4F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F527ABED110006EC4F /* Authentication.swift */; };
 		880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F727ABED830006EC4F /* AuthenticationViewModel.swift */; };
 		88272F6327AFF30B000B2AAC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88272F6227AFF30B000B2AAC /* Extensions.swift */; };
-		8830AFB827C24FE100274064 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8830AFB727C24FE100274064 /* Notification.swift */; };
 		8830AFBB27C26BD600274064 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8830AFBA27C26BD600274064 /* Controller.swift */; };
 		884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643AE27B22CE400E5AAD4 /* RecordingCell.swift */; };
 		884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643B027B234B200E5AAD4 /* CategoryView.swift */; };
@@ -58,7 +57,6 @@
 		880849F527ABED110006EC4F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		880849F727ABED830006EC4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		88272F6227AFF30B000B2AAC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		8830AFB727C24FE100274064 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		8830AFBA27C26BD600274064 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		884643AE27B22CE400E5AAD4 /* RecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingCell.swift; sourceTree = "<group>"; };
 		884643B027B234B200E5AAD4 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 				88DFD8B427B1092C008E39B1 /* AlertDetails.swift */,
 				889E4D4127B27ACD00173B4C /* Recorder */,
 				889E4D4227B27AE200173B4C /* Category */,
-				8830AFB627C24FC400274064 /* Notification */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,14 +188,6 @@
 				8830AFBA27C26BD600274064 /* Controller.swift */,
 			);
 			path = Components;
-			sourceTree = "<group>";
-		};
-		8830AFB627C24FC400274064 /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				8830AFB727C24FE100274064 /* Notification.swift */,
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 		8862A92527BA19E300B0A9DF /* FullCastTests */ = {
@@ -371,7 +360,6 @@
 				88272F6327AFF30B000B2AAC /* Extensions.swift in Sources */,
 				880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */,
 				880849DC27ABBD310006EC4F /* LoginView.swift in Sources */,
-				8830AFB827C24FE100274064 /* Notification.swift in Sources */,
 				886E2E3727BF7F7B0069A39D /* Category+CoreDataProperties.swift in Sources */,
 				884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
