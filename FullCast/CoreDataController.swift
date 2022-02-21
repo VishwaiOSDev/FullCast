@@ -60,10 +60,23 @@ final class CoreDataController {
         request.sortDescriptors = [dateSorting]
         do {
             let recordings = try viewContext.fetch(request)
+            checkNotificationUpdates(for: recordings)
+            save()
             return recordings
         } catch {
             print("Error fetching data from CoreData \(error.localizedDescription)")
             return nil
+        }
+    }
+    
+    private func checkNotificationUpdates(for recordings: [Recording]) {
+        recordings.forEach { recording in
+            if let whenDate = recording.whenToRemind {
+                if whenDate <= Date() {
+                    recording.whenToRemind = nil
+                    recording.reminderEnabled = false
+                }
+            }
         }
     }
     
@@ -73,14 +86,6 @@ final class CoreDataController {
     }
     
 }
-
-
-
-
-
-
-
-
 
 
 //MARK: - UITesting CoreData Stack

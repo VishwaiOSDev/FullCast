@@ -22,17 +22,11 @@ protocol Playable {
 
 final class RecorderViewModel : NSObject, ObservableObject {
     
-    @Published var recordingsList : [RecordDetails] = [] {
-        didSet {
-            guard let safeRecording = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) else { return }
-            recordings = safeRecording
-        }
-    }
+    @Published var recordingsList : [RecordDetails] = []
     @Published var isRecording = false
     @Published var showAlert = false
     @Published var alertDetails : AlertDetails?
     private var recordings: [Recording] = []
-    private(set) var selectedCategory: Category!
     private(set) var audioIsPlaying = false
     private(set) var audioRecorder : AVAudioRecorder!
     private(set) var audioPlayer : AVAudioPlayer!
@@ -42,10 +36,10 @@ final class RecorderViewModel : NSObject, ObservableObject {
     var timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     
     func getStoredRecordings(for selectedCategory: Category) {
-        self.selectedCategory = selectedCategory
-        guard let recordings = recorderModel.fetchAllStoredRecordings(of: selectedCategory) else { return }
+        recordings = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) ?? []
+        guard let recordingsDetails = recorderModel.fetchAllStoredRecordings(of: selectedCategory, recordings) else { return }
         DispatchQueue.main.async {
-            self.recordingsList = recordings
+            self.recordingsList = recordingsDetails
         }
     }
     
@@ -137,7 +131,6 @@ extension RecorderViewModel : Playable {
         let index = getIndexOfRecording(id)
         recordingsList[index].isPlaying = false
     }
-    
 }
 
 extension RecorderViewModel : AVAudioPlayerDelegate {
@@ -197,9 +190,7 @@ extension RecorderViewModel {
         guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
         recordingsList[indexOfPlayingAudio].isPlaying = false
     }
-    
 }
-
 
 extension RecorderViewModel {
     
@@ -238,7 +229,7 @@ extension RecorderViewModel {
         content.body = "Remainder for the recording \(body)"
         let remainderDateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: remainderDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: remainderDateComponents, repeats: false)
-        let request = UNNotificationRequest(identifier: "full_cast_remainder \(id.uuidString)", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: "\(id.uuidString)", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request) { [weak self] error in
             if let error = error {
                 print("Error adding request to the calender: \(error.localizedDescription)")
@@ -262,6 +253,5 @@ extension RecorderViewModel {
         }
     }
 }
-
 
 

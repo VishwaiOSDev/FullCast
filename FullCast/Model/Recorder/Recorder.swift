@@ -12,8 +12,7 @@ struct Recorder {
     
     var player: AVAudioPlayer!
     
-    mutating func fetchAllStoredRecordings(of selectedCategory: Category) -> [RecordDetails]?  {
-        guard let recordings = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) else { return nil }
+    mutating func fetchAllStoredRecordings(of selectedCategory: Category,_ recordings: [Recording] ) -> [RecordDetails]?  {
         let path = getPathOfDocumentDirectory()
         return detailsOf(recordings, in : path)
     }
