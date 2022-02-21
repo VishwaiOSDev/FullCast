@@ -7,6 +7,11 @@
 
 import CoreData
 
+enum RemainderType {
+    case remind(Date)
+    case cancel
+}
+
 final class CoreDataController {
     
     private let container : NSPersistentContainer
@@ -36,14 +41,20 @@ final class CoreDataController {
         }
     }
     
-    func updateReminderForRecording(at id: UUID, for date: Date) -> Bool {
+    func updateReminderForRecording(at id: UUID, remainderType: RemainderType) -> Bool {
         let request: NSFetchRequest<Recording> = Recording.fetchRequest()
         let idFiltering = NSPredicate(format: "id == %@", id as CVarArg)
         request.predicate = idFiltering
         do {
             let recording = try viewContext.fetch(request)[0]
-            recording.reminderEnabled = true
-            recording.whenToRemind = date
+            switch remainderType {
+            case .remind(let date):
+                recording.reminderEnabled = true
+                recording.whenToRemind = date
+            case .cancel:
+                recording.reminderEnabled = false
+                recording.whenToRemind = nil
+            }
             save()
             return true
         } catch {

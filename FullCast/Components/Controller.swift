@@ -88,7 +88,7 @@ struct Controller: View {
     }
     
     private func cancelRemainder() {
-        
+        recorderViewModel.cancelRemainder(for: record.id)
     }
     
     func timeString(time: TimeInterval) -> String {

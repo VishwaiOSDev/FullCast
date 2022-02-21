@@ -65,6 +65,21 @@ final class RecorderViewModel : NSObject, ObservableObject {
             }
         }
     }
+    
+    func cancelRemainder(for id: UUID) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id.uuidString])
+        let index = getIndexOfRecording(id)
+        let coreDataStatus =  CoreDataController.shared.updateReminderForRecording(at: id, remainderType: .cancel)
+        if coreDataStatus {
+            DispatchQueue.main.async {
+                withAnimation {
+                    self.recordingsList[index].reminderEnabled = false
+                }
+            }
+        } else {
+            print("Failed to edit data in CoreData...")
+        }
+    }
 }
 
 extension RecorderViewModel : Recordable {
@@ -234,7 +249,7 @@ extension RecorderViewModel {
             if let error = error {
                 print("Error adding request to the calender: \(error.localizedDescription)")
             } else {
-                let coreDataStatus = CoreDataController.shared.updateReminderForRecording(at: id, for: remainderDate)
+                let coreDataStatus = CoreDataController.shared.updateReminderForRecording(at: id, remainderType: .remind(remainderDate))
                 if coreDataStatus {
                     self?.setRemainderOfRecording(for: id)
                 } else {
