@@ -39,6 +39,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
     private(set) var audioSession : AVAudioSession = AVAudioSession.sharedInstance() // Reuse this audioSession instead of recording session...
     private(set) var playingURL : URL?
     var timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
+    private var notificationModel = Notification()
     
     func getStoredRecordings(for selectedCategory: Category) {
         self.selectedCategory = selectedCategory
@@ -62,16 +63,14 @@ final class RecorderViewModel : NSObject, ObservableObject {
         }
     }
     
-//    func setRemainderOfRecording(at date: Date, for id: UUID) -> Bool {
-//        let updateStatus = CoreDataController.shared.updateReminderForRecording(at: id, for: date)
-//        if updateStatus {
-//            let index = getIndexOfRecording(id)
-//            withAnimation {
-//                recordingsList[index].reminderEnabled = true
-//            }
-//        }
-//        return updateStatus
-//    }
+    func setRemainderOfRecording(for id: UUID)  {
+        let index = getIndexOfRecording(id)
+        DispatchQueue.main.async {
+            withAnimation {
+                self.recordingsList[index].reminderEnabled = true
+            }
+        }
+    }
 }
 
 extension RecorderViewModel : Recordable {
@@ -199,6 +198,69 @@ extension RecorderViewModel {
         recordingsList[indexOfPlayingAudio].isPlaying = false
     }
     
+}
+
+
+extension RecorderViewModel {
+    
+    func requestAuthorization(for remainderDate: Date, with body: String, id: UUID) {
+        let notificationDetails = notificationModel.getNotificationDetails(body, id, remainderDate)
+        setupNotifcationManager(with: notificationDetails)
+    }
+    
+    private func setupNotifcationManager(with details: Notification.Details) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                self.getNotificationPermission { success in
+                    guard success else { return }
+                    self.scheduleNotifcation(for: details)
+                }
+            case .authorized:
+                self.scheduleNotifcation(for: details)
+            case .denied:
+                self.showAlertMessage(
+                    title: "Enable Notifications",
+                    message: "To enable access, go to Settings > Privacy > Notifcation and turn on Notification access for this app."
+                )
+            default:
+                self.showAlertMessage(
+                    title: "Enable Notifications",
+                    message: "To enable access, go to Settings > Privacy > Notifcation and turn on Notification access for this app."
+                )
+            }
+        }
+    }
+    
+    private func scheduleNotifcation(for details: Notification.Details) {
+        let content = UNMutableNotificationContent()
+        content.title = "\(details.title)"
+        content.subtitle = "\(details.subtitle)"
+        content.body = "Remainder for the recording \(details.body)"
+        let trigger = UNCalendarNotificationTrigger(dateMatching: details.reminderDate, repeats: false)
+        let request = UNNotificationRequest(identifier: "full_cast_remainder \(details.id)", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { [weak self] error in
+            if let error = error {
+                print("Error adding request to the calender: \(error.localizedDescription)")
+            } else {
+                guard let notificationStatus = self?.notificationModel.saveNotificationToCoreDate(for: details) else { return }
+                if notificationStatus {
+                    self?.setRemainderOfRecording(for: details.id)
+                } else {
+                    print("Failed to Store Notification Details")
+                }
+            }
+        }
+    }
+    
+    private func getNotificationPermission(completionHandler: @escaping (_ success: Bool) -> ()) {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if let error = error {
+                print("Error while getting notifcation permission \(error.localizedDescription)")
+            }
+            completionHandler(success)
+        }
+    }
 }
 
 

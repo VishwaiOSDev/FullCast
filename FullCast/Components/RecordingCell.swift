@@ -58,16 +58,11 @@ struct RecordingCell : View {
 }
 
 
-
-
-
-
 struct RecordingCell_Previews : PreviewProvider {
     static var previews: some View {
         RecordingCell(record: .constant(RecordDetails(id: UUID(), fileName: "iOS Dev", audioURL: URL(fileURLWithPath: "url"), createdAt: Date(), duration: 1.0, elapsedDuration: 0.3, reminderDate: Date(), reminderEnabled: true)), recorderViewModel: RecorderViewModel()) {
         }
         .preferredColorScheme(.dark)
         .previewLayout(.sizeThatFits)
-        .environmentObject(NotifcationViewModel())
     }
 }

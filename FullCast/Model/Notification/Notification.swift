@@ -24,4 +24,8 @@ struct Notification {
         return Notification.Details(id: id, title: "FullCast", subtitle: "You got a remainder", body: "Remainder for the recording \(body)", notificationDate: reminderDate)
     }
     
+    func saveNotificationToCoreDate(for details: Details) -> Bool {
+        return CoreDataController.shared.updateReminderForRecording(at: details.id, for: details.notificationDate!)
+    }
+    
 }

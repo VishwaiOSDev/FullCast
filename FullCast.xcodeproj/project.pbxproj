@@ -27,7 +27,6 @@
 		886E2E3527BF7F7B0069A39D /* Recording+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3127BF7F7B0069A39D /* Recording+CoreDataProperties.swift */; };
 		886E2E3627BF7F7B0069A39D /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3227BF7F7B0069A39D /* Category+CoreDataClass.swift */; };
 		886E2E3727BF7F7B0069A39D /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3327BF7F7B0069A39D /* Category+CoreDataProperties.swift */; };
-		886E2E3A27BFB6900069A39D /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3927BFB6900069A39D /* NotificationViewModel.swift */; };
 		8872BABA27ACEF4200643352 /* RecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BAB927ACEF4200643352 /* RecorderView.swift */; };
 		8872BABC27AD0AFE00643352 /* RecorderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */; };
 		8872BABE27AD0F5700643352 /* RecordDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABD27AD0F5700643352 /* RecordDetails.swift */; };
@@ -71,7 +70,6 @@
 		886E2E3127BF7F7B0069A39D /* Recording+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recording+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		886E2E3227BF7F7B0069A39D /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataClass.swift"; path = "../../Category+CoreDataClass.swift"; sourceTree = "<group>"; };
 		886E2E3327BF7F7B0069A39D /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		886E2E3927BFB6900069A39D /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		8872BAB927ACEF4200643352 /* RecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderView.swift; sourceTree = "<group>"; };
 		8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderViewModel.swift; sourceTree = "<group>"; };
 		8872BABD27AD0F5700643352 /* RecordDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetails.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 				880849F727ABED830006EC4F /* AuthenticationViewModel.swift */,
 				8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */,
 				889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */,
-				886E2E3927BFB6900069A39D /* NotificationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -376,7 +373,6 @@
 				880849DC27ABBD310006EC4F /* LoginView.swift in Sources */,
 				8830AFB827C24FE100274064 /* Notification.swift in Sources */,
 				886E2E3727BF7F7B0069A39D /* Category+CoreDataProperties.swift in Sources */,
-				886E2E3A27BFB6900069A39D /* NotificationViewModel.swift in Sources */,
 				884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
 				88DFD8B527B1092C008E39B1 /* AlertDetails.swift in Sources */,
