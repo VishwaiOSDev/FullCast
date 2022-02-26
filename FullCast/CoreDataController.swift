@@ -12,10 +12,16 @@ enum RemainderType {
     case cancel
 }
 
+protocol Categorieable {
+    func saveCategory(_ categoryName: String)
+    func deleteCategory(_ categoryName: Category)
+}
+
 final class CoreDataController {
     
     private let container : NSPersistentContainer
     static let shared = CoreDataController()
+    
     var viewContext : NSManagedObjectContext {
         return container.viewContext
     }
@@ -95,8 +101,25 @@ final class CoreDataController {
         viewContext.delete(recording)
         save()
     }
-    
 }
+
+extension CoreDataController: Categorieable {
+    func saveCategory(_ categoryName: String) {
+        let newCategory = Category(context: viewContext)
+        newCategory.id = UUID()
+        newCategory.categoryName = categoryName
+        save()
+    }
+    
+    func deleteCategory(_ category: Category) {
+        viewContext.delete(category)
+        save()
+    }
+}
+
+
+
+
 
 
 //MARK: - UITesting CoreData Stack

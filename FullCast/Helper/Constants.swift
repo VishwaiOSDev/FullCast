@@ -8,6 +8,11 @@
 import AVFoundation
 import UIKit
 
+enum MicrophoneAlertContent: String {
+    case title = "Unable to access the Microphone"
+    case message = "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
+}
+
 struct Constants {
     //    static let settings = [
     //        AVFormatIDKey: Int(kAudioFormatAppleLossless),
@@ -27,5 +32,4 @@ struct Constants {
             UIApplication.shared.open(url)
         }
     }
-    
 }

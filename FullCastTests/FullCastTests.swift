@@ -27,32 +27,35 @@ class FullCastTests: XCTestCase {
     
     //MARK: -  Testing for Category ViewModel
     
-    func test_CategoryViewModel_folders_shouldByEmpty() {
-        let categoryViewModel = CategoryViewModel()
-        let folders = categoryViewModel.folders
-        XCTAssertEqual(folders.count, 0)
+    func test_CategoryViewModel_FolderName() {
+        
     }
     
-    func test_CategoryModel_category_saveFolderToCoreData() {
-        for _ in 0..<100 {
-            let folderName = UUID().uuidString
-            testCoreDataStack.addFolderToDataBase(folderName: folderName)
-            let gotResult = testCoreDataStack.fetchFolderWithName(folderName: folderName)
-            XCTAssertEqual(gotResult.count, 1)
-            XCTAssertEqual(folderName, gotResult[0].wrappedCategoryName)
-        }
-        let fetchAllItem = testCoreDataStack.fetchAllFolders()
-        XCTAssertGreaterThan(fetchAllItem.count, 0)
-    }
-    
-    func test_CategoryModel_category_hasUnqiueNames() {
-        let folder1 = "Apple"
-        let folder2 = "Apple"
-        testCoreDataStack.addFolderToDataBase(folderName: folder1)
-        testCoreDataStack.addFolderToDataBase(folderName: folder2)
-        let getResult = testCoreDataStack.fetchAllFolders()
-        print(getResult)
-    }
+//    func test_CategoryViewModel_folders_shouldByEmpty() {
+//        let categoryViewModel = CategoryViewModel()
+//        XCTAssertEqual(folders.count, 0)
+//    }
+//
+//    func test_CategoryModel_category_saveFolderToCoreData() {
+//        for _ in 0..<100 {
+//            let folderName = UUID().uuidString
+//            testCoreDataStack.addFolderToDataBase(folderName: folderName)
+//            let gotResult = testCoreDataStack.fetchFolderWithName(folderName: folderName)
+//            XCTAssertEqual(gotResult.count, 1)
+//            XCTAssertEqual(folderName, gotResult[0].wrappedCategoryName)
+//        }
+//        let fetchAllItem = testCoreDataStack.fetchAllFolders()
+//        XCTAssertGreaterThan(fetchAllItem.count, 0)
+//    }
+//
+//    func test_CategoryModel_category_hasUnqiueNames() {
+//        let folder1 = "Apple"
+//        let folder2 = "Apple"
+//        testCoreDataStack.addFolderToDataBase(folderName: folder1)
+//        testCoreDataStack.addFolderToDataBase(folderName: folder2)
+//        let getResult = testCoreDataStack.fetchAllFolders()
+//        print(getResult)
+//    }
     
     //MARK: - Testing for RecorderViewModel
     

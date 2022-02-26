@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Controller: View {
     
-    @Binding var record: RecordDetails
+    @Binding var record: Recorder.Details
     @ObservedObject var recorderViewModel: RecorderViewModel
     var action: () -> ()
     
@@ -46,15 +46,15 @@ struct Controller: View {
                 }
             }
         }
-        .alert(isPresented: $recorderViewModel.showAlert) {
-            guard let alertDetails = recorderViewModel.alertDetails else { fatalError("Failed to load alert details") }
-            return Alert(
-                title: Text(alertDetails.alertTitle),
-                message: Text(alertDetails.alertMessage),
-                primaryButton: .cancel(Text("Cancel")),
-                secondaryButton: .default(Text("Settings"), action: Constants.openSettings)
-            )
-        }
+//        .alert(isPresented: $recorderViewModel.showAlert) {
+//            guard let alertDetails = recorderViewModel.alertDetails else { fatalError("Failed to load alert details") }
+//            return Alert(
+//                title: Text(alertDetails.alertTitle),
+//                message: Text(alertDetails.alertMessage),
+//                primaryButton: .cancel(Text("Cancel")),
+//                secondaryButton: .default(Text("Settings"), action: Constants.openSettings)
+//            )
+//        }
     }
     
     private var playStopButton : some View {

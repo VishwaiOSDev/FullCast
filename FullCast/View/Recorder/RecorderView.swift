@@ -59,13 +59,7 @@ struct RecorderView: View {
         recordingButton
             .onTapGesture(perform: recordButtonPressed)
             .alert(isPresented: $recorderViewModel.showAlert) {
-                guard let alertDetails = recorderViewModel.alertDetails else { fatalError("Failed to load alert details") }
-                return Alert(
-                    title: Text(alertDetails.alertTitle),
-                    message: Text(alertDetails.alertMessage),
-                    primaryButton: .cancel(Text("Cancel")),
-                    secondaryButton: .default(Text("Settings"), action: Constants.openSettings)
-                )
+                AlertService.shared.showSettingsAlertBox(title: MicrophoneAlertContent.title.rawValue, message: MicrophoneAlertContent.message.rawValue)
             }
             .frame(maxWidth : .infinity)
             .padding()
@@ -83,19 +77,14 @@ struct RecorderView: View {
     }
     
     private var animatedRecording : some View {
-        RoundedRectangle(cornerRadius: recorderViewModel.isRecording ? 5 : 80)
-            .frame(width: recorderViewModel.isRecording ? 40 : 60, height: recorderViewModel.isRecording ? 40 : 60, alignment: .center)
+        RoundedRectangle(cornerRadius: recorderViewModel.recorderStatus == .startRecorder ? 5 : 80)
+            .frame(width: recorderViewModel.recorderStatus == .startRecorder ? 40 : 60, height: recorderViewModel.recorderStatus == .startRecorder ? 40 : 60, alignment: .center)
             .foregroundColor(Color(UIColor.red))
     }
     
     private func recordButtonPressed() {
         guard let selectedCategory = selectedCategory else { return }
-        if recorderViewModel.isRecording {
-            recorderViewModel.stopRecording()
-            recorderViewModel.getStoredRecordings(for: selectedCategory)
-        } else {
-            recorderViewModel.startRecording(on: selectedCategory)
-        }
+        recorderViewModel.startRecordingAudio(on: selectedCategory)
     }
     
     private func performDelete(at offset : IndexSet) {
@@ -103,9 +92,12 @@ struct RecorderView: View {
     }
 }
 
-struct VoiceRecodingView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecorderView()
-            .preferredColorScheme(.dark)
-    }
-}
+//struct VoiceRecodingView_Previews: PreviewProvider {
+//
+//    static let recorderViewModel = RecorderViewModel()
+//
+//    static var previews: some View {
+//        RecorderView(viewModel: recorderViewModel, category: Category())
+//            .preferredColorScheme(.dark)
+//    }
+//}

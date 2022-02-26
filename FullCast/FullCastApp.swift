@@ -14,7 +14,7 @@ struct FullCastApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CategoryView()
+            CategoryView(viewModel: CategoryViewModel())
                 .environment(\.managedObjectContext, context)
         }
     }

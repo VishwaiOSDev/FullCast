@@ -10,9 +10,22 @@ import AVFoundation
 
 struct Recorder {
     
+    struct Details : Identifiable {
+        var id : UUID
+        let fileName : String
+        let audioURL : URL
+        let createdAt : Date
+        var isPlaying : Bool = false
+        let duration : Double
+        var elapsedDuration : Double
+        var reminderDate: Date
+        var reminderEnabled: Bool
+        var showCalender: Bool = false
+    }
+    
     var player: AVAudioPlayer!
     
-    mutating func fetchAllStoredRecordings(of selectedCategory: Category,_ recordings: [Recording] ) -> [RecordDetails]?  {
+    mutating func fetchAllStoredRecordings(of selectedCategory: Category,_ recordings: [Recording] ) -> [Details]?  {
         let path = getPathOfDocumentDirectory()
         return detailsOf(recordings, in : path)
     }
@@ -26,12 +39,12 @@ struct Recorder {
         CoreDataController.shared.save()
     }
     
-    private mutating func detailsOf(_ recordings: [Recording], in path : String) -> [RecordDetails] {
-        var recordingDetails = [RecordDetails]()
+    private mutating func detailsOf(_ recordings: [Recording], in path : String) -> [Details] {
+        var recordingDetails = [Details]()
         for recording in recordings {
             let audioURL = URL(fileURLWithPath: path).appendingPathComponent(recording.fileName!)
             if let durationOfAudio = getDurationOfEachAudio(of: audioURL) {
-                recordingDetails.append(RecordDetails(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio, elapsedDuration: 0.0, reminderDate: recording.whenToRemind ?? Date() , reminderEnabled: recording.reminderEnabled))
+                recordingDetails.append(Details(id: recording.id! , fileName : recording.fileName!, audioURL: audioURL, createdAt: recording.createdAt!, duration : durationOfAudio, elapsedDuration: 0.0, reminderDate: recording.whenToRemind ?? Date() , reminderEnabled: recording.reminderEnabled))
             }
         }
         return recordingDetails

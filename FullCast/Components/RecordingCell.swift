@@ -10,7 +10,7 @@ import UserNotifications
 
 struct RecordingCell : View {
     
-    @Binding var record : RecordDetails
+    @Binding var record : Recorder.Details
     @ObservedObject var recorderViewModel : RecorderViewModel
     var action: () -> ()
     
@@ -60,7 +60,7 @@ struct RecordingCell : View {
 
 struct RecordingCell_Previews : PreviewProvider {
     static var previews: some View {
-        RecordingCell(record: .constant(RecordDetails(id: UUID(), fileName: "iOS Dev", audioURL: URL(fileURLWithPath: "url"), createdAt: Date(), duration: 1.0, elapsedDuration: 0.3, reminderDate: Date(), reminderEnabled: true)), recorderViewModel: RecorderViewModel()) {
+        RecordingCell(record: .constant(Recorder.Details(id: UUID(), fileName: "iOS Dev", audioURL: URL(fileURLWithPath: "url"), createdAt: Date(), duration: 1.0, elapsedDuration: 0.3, reminderDate: Date(), reminderEnabled: true)), recorderViewModel: RecorderViewModel()) {
         }
         .preferredColorScheme(.dark)
         .previewLayout(.sizeThatFits)
