@@ -85,10 +85,6 @@ struct RecorderView: View {
         guard let selectedCategory = selectedCategory else { return }
         recorderViewModel.checkPermissionAndStartOrStopRecorder(for: selectedCategory)
     }
-    
-    private func performDelete(at offset : IndexSet) {
-        recorderViewModel.listOfRecordings.remove(atOffsets: offset)
-    }
 }
 
 //struct VoiceRecodingView_Previews: PreviewProvider {

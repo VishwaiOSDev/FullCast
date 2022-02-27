@@ -37,7 +37,6 @@
 		8879D9D727B14513004E19C0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8879D9D627B14513004E19C0 /* Constants.swift */; };
 		889E4D4027B25F3B00173B4C /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */; };
 		88DFD8B327B10865008E39B1 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DFD8B227B10865008E39B1 /* Recorder.swift */; };
-		88DFD8B527B1092C008E39B1 /* AlertDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DFD8B427B1092C008E39B1 /* AlertDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +82,6 @@
 		8879D9D627B14513004E19C0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		88DFD8B227B10865008E39B1 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
-		88DFD8B427B1092C008E39B1 /* AlertDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				880849F527ABED110006EC4F /* Authentication.swift */,
-				88DFD8B427B1092C008E39B1 /* AlertDetails.swift */,
 				889E4D4127B27ACD00173B4C /* Recorder */,
 			);
 			path = Model;
@@ -385,7 +382,6 @@
 				886E2E3727BF7F7B0069A39D /* Category+CoreDataProperties.swift in Sources */,
 				884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
-				88DFD8B527B1092C008E39B1 /* AlertDetails.swift in Sources */,
 				882FF42327C8CA39008620D7 /* RecoderService.swift in Sources */,
 				889E4D4027B25F3B00173B4C /* CategoryViewModel.swift in Sources */,
 				882FF42027C8B3BE008620D7 /* PromptService.swift in Sources */,

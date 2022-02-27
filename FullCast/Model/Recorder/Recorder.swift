@@ -9,6 +9,8 @@ import Foundation
 
 struct Recorder {
     
+    private var allRecordings: [Recording] = []
+    
     struct Details : Identifiable {
         var id : UUID
         let fileName : String
@@ -22,9 +24,14 @@ struct Recorder {
         var showCalender: Bool = false
     }
     
-    func getStoredRecording(_ category: Category) -> [Recorder.Details] {
-        let allRecording = CoreDataController.shared.fetchAllRecordings(of: category) ?? []
-        return PlayingService.shared.getDetailsOfEachRecording(on: category, recordingList: allRecording)
+    mutating func getStoredRecording(_ category: Category) -> [Recorder.Details] {
+        allRecordings = CoreDataController.shared.fetchAllRecordings(of: category) ?? []
+        return PlayingService.shared.getDetailsOfEachRecording(on: category, recordingList: allRecordings)
     }
     
+    func peformDeleteOfRecording(at indexSet: IndexSet) {
+        indexSet.forEach { index in
+            CoreDataController.shared.deleteRecording(recording: allRecordings[index])
+        }
+    }
 }

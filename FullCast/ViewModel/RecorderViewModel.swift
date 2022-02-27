@@ -23,36 +23,13 @@ final class RecorderViewModel : NSObject, ObservableObject {
     private(set) var playingURL : URL?
     private(set) var recorderModel = Recorder()
     var timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
-    
-    func getRecordings(of selectedCategory: Category) {
-        DispatchQueue.main.async {
-            withAnimation {
-                self.listOfRecordings = self.recorderModel.getStoredRecording(selectedCategory)
-            }
-        }
-    }
-    
-    //    func getStoredRecordings(for selectedCategory: Category) {
-    //        recordings = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) ?? []
-    //        guard let recordingsDetails = recorderModel.fetchAllStoredRecordings(of: selectedCategory, recordings) else { return }
-    //        DispatchQueue.main.async {
-    //            self.recordingsList = recordingsDetails
-    //        }
-    //    }
-    
     func updateSlider() {
         guard let indexOfPlayingAudio = listOfRecordings.firstIndex(where: {$0.isPlaying == true}) else { return }
         listOfRecordings[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
         print("Current Duration \(audioPlayer.currentTime) :--: \(listOfRecordings[indexOfPlayingAudio].elapsedDuration)")
     }
     
-    func deleteRecordingOn(_ indexSet : IndexSet) {
-        listOfRecordings.remove(atOffsets: indexSet)
-        indexSet.forEach { index in
-            let recording = recordings[index]
-            CoreDataController.shared.deleteRecording(recording: recording)
-        }
-    }
+    
     
     func setRemainderOfRecording(for id: UUID)  {
         let index = getIndexOfRecording(id)
@@ -136,13 +113,6 @@ extension RecorderViewModel {
         return index
     }
     
-    private func showAlertMessage(title : String, message: String) {
-        let alert = AlertDetails(alertTitle: title, alertMessage: message)
-        DispatchQueue.main.async {
-            self.showAlert = true
-        }
-    }
-    
     private func stopThePlayingAudio() {
         guard let indexOfPlayingAudio = listOfRecordings.firstIndex(where: {$0.isPlaying == true}) else { return }
         listOfRecordings[indexOfPlayingAudio].isPlaying = false
@@ -224,6 +194,23 @@ extension RecorderViewModel: UNUserNotificationCenterDelegate {
             }
             completionHandler(success)
         }
+    }
+}
+
+//MARK: - Get List of Stored Audios MVVM Architecture...
+
+extension RecorderViewModel {
+    func getRecordings(of selectedCategory: Category) {
+        DispatchQueue.main.async {
+            withAnimation {
+                self.listOfRecordings = self.recorderModel.getStoredRecording(selectedCategory)
+            }
+        }
+    }
+    
+    func deleteRecordingOn(_ indexSet : IndexSet) {
+        listOfRecordings.remove(atOffsets: indexSet)
+        recorderModel.peformDeleteOfRecording(at: indexSet)
     }
 }
 
