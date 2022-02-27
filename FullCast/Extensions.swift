@@ -20,3 +20,14 @@ extension URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
 }
+
+extension RecorderError: LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .permissionNotGranted:
+            return NSLocalizedString("Mirophone is not enabled", comment: "Enable Permission")
+        case .someOtherError(let error):
+            return NSLocalizedString(error, comment: "Catch Error")
+        }
+    }
+}

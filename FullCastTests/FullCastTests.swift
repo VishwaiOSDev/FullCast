@@ -61,7 +61,7 @@ class FullCastTests: XCTestCase {
     
     func test_RecorderViewModel_recordingsList_shouldBeEmpty() {
         let recorderViewModel = RecorderViewModel()
-        let recordingList = recorderViewModel.recordingsList
+        let recordingList = recorderViewModel.listOfRecordings
         XCTAssertEqual(recordingList.count, 0)
     }
     

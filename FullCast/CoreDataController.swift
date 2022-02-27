@@ -17,6 +17,10 @@ protocol Categorieable {
     func deleteCategory(_ categoryName: Category)
 }
 
+protocol Recordable {
+    func saveRecording(_ fileName: String, _ category: Category)
+}
+
 final class CoreDataController {
     
     private let container : NSPersistentContainer
@@ -99,6 +103,17 @@ final class CoreDataController {
     
     func deleteRecording(recording: Recording) {
         viewContext.delete(recording)
+        save()
+    }
+}
+
+extension CoreDataController: Recordable {
+    func saveRecording(_ fileName: String,_ category: Category) {
+        let newRecording = Recording(context: viewContext)
+        newRecording.id = UUID()
+        newRecording.fileName = fileName
+        newRecording.createdAt = Date()
+        newRecording.toCategory = category
         save()
     }
 }

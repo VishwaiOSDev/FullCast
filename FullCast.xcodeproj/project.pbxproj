@@ -24,6 +24,7 @@
 		8830AFBB27C26BD600274064 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8830AFBA27C26BD600274064 /* Controller.swift */; };
 		884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643AE27B22CE400E5AAD4 /* RecordingCell.swift */; };
 		884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643B027B234B200E5AAD4 /* CategoryView.swift */; };
+		884951A827CA44FB005B1715 /* PlayingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884951A727CA44FB005B1715 /* PlayingService.swift */; };
 		8862A92727BA19E300B0A9DF /* FullCastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8862A92627BA19E300B0A9DF /* FullCastTests.swift */; };
 		886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886874AC27AFB57700BF2692 /* CoreDataController.swift */; };
 		886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */; };
@@ -68,6 +69,7 @@
 		8830AFBA27C26BD600274064 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		884643AE27B22CE400E5AAD4 /* RecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingCell.swift; sourceTree = "<group>"; };
 		884643B027B234B200E5AAD4 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		884951A727CA44FB005B1715 /* PlayingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingService.swift; sourceTree = "<group>"; };
 		8862A92427BA19E200B0A9DF /* FullCastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FullCastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8862A92627BA19E300B0A9DF /* FullCastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCastTests.swift; sourceTree = "<group>"; };
 		886874AC27AFB57700BF2692 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				882FF42227C8CA39008620D7 /* RecoderService.swift */,
+				884951A727CA44FB005B1715 /* PlayingService.swift */,
 			);
 			path = AVRecorder;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				886E2E3627BF7F7B0069A39D /* Category+CoreDataClass.swift in Sources */,
 				884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */,
 				880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */,
+				884951A827CA44FB005B1715 /* PlayingService.swift in Sources */,
 				886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */,
 				886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */,
 				8830AFBB27C26BD600274064 /* Controller.swift in Sources */,

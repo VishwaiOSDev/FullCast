@@ -21,13 +21,13 @@ struct RecorderView: View {
         .navigationTitle(selectedCategory!.wrappedCategoryName)
         .onAppear {
             guard let selectedCategory = selectedCategory else { return }
-            recorderViewModel.getStoredRecordings(for: selectedCategory)
+            recorderViewModel.getRecordings(of: selectedCategory)
         }
     }
     
     private var listView : some View {
         List {
-            ForEach($recorderViewModel.recordingsList, id: \.id) { $recording in
+            ForEach($recorderViewModel.listOfRecordings, id: \.id) { $recording in
                 RecordingCell(record: $recording, recorderViewModel: recorderViewModel) {
                     if recording.isPlaying {
                         recorderViewModel.stopPlaying(id : recording.id)
@@ -43,7 +43,6 @@ struct RecorderView: View {
                 if recorderViewModel.audioIsPlaying {
                     recorderViewModel.updateSlider()
                 } else {
-                    print("Timer Cancelled onReceive")
                     recorderViewModel.timer.upstream.connect().cancel()
                 }
             }
@@ -84,11 +83,11 @@ struct RecorderView: View {
     
     private func recordButtonPressed() {
         guard let selectedCategory = selectedCategory else { return }
-        recorderViewModel.startRecordingAudio(on: selectedCategory)
+        recorderViewModel.checkPermissionAndStartOrStopRecorder(for: selectedCategory)
     }
     
     private func performDelete(at offset : IndexSet) {
-        recorderViewModel.recordingsList.remove(atOffsets: offset)
+        recorderViewModel.listOfRecordings.remove(atOffsets: offset)
     }
 }
 

@@ -10,17 +10,11 @@ import CoreData
 import SwiftUI
 import UserNotifications
 
-protocol Recordable {
-    func startRecording(on category : Category)
-    func stopRecording()
-}
-
 final class RecorderViewModel : NSObject, ObservableObject {
     
-    @Published var recordingsList : [Recorder.Details] = []
+    @Published var listOfRecordings : [Recorder.Details] = []
     @Published var recorderStatus: RecorderStatus = .stopRecorder
     @Published var showAlert = false
-    @Published var alertDetails : AlertDetails?
     private var recordings: [Recording] = []
     private(set) var audioIsPlaying = false
     private(set) var audioRecorder : AVAudioRecorder!
@@ -30,61 +24,30 @@ final class RecorderViewModel : NSObject, ObservableObject {
     private(set) var recorderModel = Recorder()
     var timer = Timer.publish(every: 0.001, on: .main, in: .common).autoconnect()
     
-    func startRecordingAudio(on category: Category) {
-        let fileName = "\(category.wrappedCategoryName) \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
-        let audioPath = URL.documents.appendingPathComponent(fileName)
-        RecorderService.shared.startRecording { result in
-            switch(result) {
-            case .success:
-                self.startOrStopRecorder(for: audioPath)
-            case .failure(let error):
-                self.recorderErrorHandling(error)
-            }
-        }
-    }
-    
-    private func startOrStopRecorder(for path: URL) {
-        RecorderService.shared.recordAudio(path) { recorderStatus in
-            switch recorderStatus {
-            case .success(let recorder):
-                DispatchQueue.main.async {
-                    withAnimation {
-                        self.recorderStatus = recorder
-                    }
-                }
-            case .failure(let errorMessage):
-                print(errorMessage)
-            }
-        }
-    }
-    
-    private func recorderErrorHandling(_ error: RecorderError) {
-        switch error {
-        case .permissionNotGranted:
-            DispatchQueue.main.async {
-                self.showAlert.toggle()
-            }
-        case .someOtherError(let errorMessage):
-            print(errorMessage)
-        }
-    }
-    
-    func getStoredRecordings(for selectedCategory: Category) {
-        recordings = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) ?? []
-        guard let recordingsDetails = recorderModel.fetchAllStoredRecordings(of: selectedCategory, recordings) else { return }
+    func getRecordings(of selectedCategory: Category) {
         DispatchQueue.main.async {
-            self.recordingsList = recordingsDetails
+            withAnimation {
+                self.listOfRecordings = self.recorderModel.getStoredRecording(selectedCategory)
+            }
         }
     }
+    
+    //    func getStoredRecordings(for selectedCategory: Category) {
+    //        recordings = CoreDataController.shared.fetchAllRecordings(of: selectedCategory) ?? []
+    //        guard let recordingsDetails = recorderModel.fetchAllStoredRecordings(of: selectedCategory, recordings) else { return }
+    //        DispatchQueue.main.async {
+    //            self.recordingsList = recordingsDetails
+    //        }
+    //    }
     
     func updateSlider() {
-        guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
-        recordingsList[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
-        print("Current Duration \(audioPlayer.currentTime) :--: \(recordingsList[indexOfPlayingAudio].elapsedDuration)")
+        guard let indexOfPlayingAudio = listOfRecordings.firstIndex(where: {$0.isPlaying == true}) else { return }
+        listOfRecordings[indexOfPlayingAudio].elapsedDuration = audioPlayer.currentTime
+        print("Current Duration \(audioPlayer.currentTime) :--: \(listOfRecordings[indexOfPlayingAudio].elapsedDuration)")
     }
     
     func deleteRecordingOn(_ indexSet : IndexSet) {
-        recordingsList.remove(atOffsets: indexSet)
+        listOfRecordings.remove(atOffsets: indexSet)
         indexSet.forEach { index in
             let recording = recordings[index]
             CoreDataController.shared.deleteRecording(recording: recording)
@@ -95,7 +58,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
         let index = getIndexOfRecording(id)
         DispatchQueue.main.async {
             withAnimation {
-                self.recordingsList[index].reminderEnabled = true
+                self.listOfRecordings[index].reminderEnabled = true
             }
         }
     }
@@ -107,7 +70,7 @@ final class RecorderViewModel : NSObject, ObservableObject {
         if coreDataStatus {
             DispatchQueue.main.async {
                 withAnimation {
-                    self.recordingsList[index].reminderEnabled = false
+                    self.listOfRecordings[index].reminderEnabled = false
                 }
             }
         } else {
@@ -116,42 +79,6 @@ final class RecorderViewModel : NSObject, ObservableObject {
     }
 }
 
-//extension RecorderViewModel: Recordable {
-//    func startRecording(on category : Category) {
-//        let microphonePermission = setupRecordingSession()
-//        switch(microphonePermission) {
-//        case .undetermined:
-//            audioSession.requestRecordPermission { permission in
-//                if !permission {
-//                    return self.showAlertMessage(
-//                        title: "Unable to access the Microphone",
-//                        message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
-//                    )
-//                }
-//                self.startRecording(on: category)
-//            }
-//        case .denied:
-//            showAlertMessage(
-//                title: "Unable to access the Microphone",
-//                message: "To enable access, go to Settings > Privacy > Microphone and turn on Microphone access for this app."
-//            )
-//        case .granted:
-//            recordAudio(on: category)
-//        @unknown default:
-//            fatalError("Apple has introduced something new.")
-//        }
-//    }
-//
-////    func stopRecording(){
-////        audioRecorder.stop()
-////        DispatchQueue.main.async {
-////            withAnimation {
-////                self.isRecording = false
-////            }
-////        }
-////    }
-//}
-
 extension RecorderViewModel {
     func startPlaying(id: UUID, sliderDuration : Double) {
         if audioIsPlaying {
@@ -159,8 +86,8 @@ extension RecorderViewModel {
         }
         self.timer = timer.upstream.autoconnect()
         let indexOfRecording = getIndexOfRecording(id)
-        recordingsList[indexOfRecording].isPlaying = true
-        playingURL = recordingsList[indexOfRecording].audioURL
+        listOfRecordings[indexOfRecording].isPlaying = true
+        playingURL = listOfRecordings[indexOfRecording].audioURL
         audioIsPlaying = true
         do {
             audioPlayer = try AVAudioPlayer(contentsOf : playingURL!)
@@ -179,7 +106,7 @@ extension RecorderViewModel {
         audioIsPlaying = false
         audioPlayer.stop()
         let index = getIndexOfRecording(id)
-        recordingsList[index].isPlaying = false
+        listOfRecordings[index].isPlaying = false
     }
 }
 
@@ -187,8 +114,8 @@ extension RecorderViewModel : AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         timer.upstream.connect().cancel()
         audioIsPlaying = false
-        guard let index = recordingsList.firstIndex(where: {$0.audioURL == player.url!}) else { return }
-        recordingsList[index].isPlaying = false
+        guard let index = listOfRecordings.firstIndex(where: {$0.audioURL == player.url!}) else { return }
+        listOfRecordings[index].isPlaying = false
     }
 }
 
@@ -204,26 +131,8 @@ extension RecorderViewModel {
         return recordingSession.recordPermission
     }
     
-    //    private func recordAudio(on category : Category) {
-    //        let fileName = "\(category.wrappedCategoryName) \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
-    //        let path = URL.documents.appendingPathComponent(fileName)
-    //        do {
-    //            audioRecorder = try AVAudioRecorder(url: path, settings: Constants.settings)
-    //            audioRecorder.prepareToRecord()
-    //            audioRecorder.record()
-    //            recorderModel.saveFileToCoreData(of: fileName,on: category)
-    //            DispatchQueue.main.async {
-    //                withAnimation {
-    //                    self.isRecording = true
-    //                }
-    //            }
-    //        } catch {
-    //            fatalError("Failed to play the recording \(error.localizedDescription)")
-    //        }
-    //    }
-    
     private func getIndexOfRecording(_ id: UUID) -> Array.Index {
-        guard let index = recordingsList.firstIndex(where: {$0.id == id}) else { return -1 }
+        guard let index = listOfRecordings.firstIndex(where: {$0.id == id}) else { return -1 }
         return index
     }
     
@@ -231,13 +140,12 @@ extension RecorderViewModel {
         let alert = AlertDetails(alertTitle: title, alertMessage: message)
         DispatchQueue.main.async {
             self.showAlert = true
-            self.alertDetails = alert
         }
     }
     
     private func stopThePlayingAudio() {
-        guard let indexOfPlayingAudio = recordingsList.firstIndex(where: {$0.isPlaying == true}) else { return }
-        recordingsList[indexOfPlayingAudio].isPlaying = false
+        guard let indexOfPlayingAudio = listOfRecordings.firstIndex(where: {$0.isPlaying == true}) else { return }
+        listOfRecordings[indexOfPlayingAudio].isPlaying = false
     }
 }
 
@@ -261,15 +169,9 @@ extension RecorderViewModel: UNUserNotificationCenterDelegate {
             case .authorized:
                 self.scheduleNotifcation(for: date, with: body, id: id)
             case .denied:
-                self.showAlertMessage(
-                    title: "Enable Notifications",
-                    message: "To enable access, go to Settings > Privacy > Notifcation and turn on Notification access for this app."
-                )
+                break
             default:
-                self.showAlertMessage(
-                    title: "Enable Notifications",
-                    message: "To enable access, go to Settings > Privacy > Notifcation and turn on Notification access for this app."
-                )
+                break
             }
         }
     }
@@ -321,6 +223,50 @@ extension RecorderViewModel: UNUserNotificationCenterDelegate {
                 print("Error while getting notifcation permission \(error.localizedDescription)")
             }
             completionHandler(success)
+        }
+    }
+}
+
+//MARK: - Audio Recorder MVVM Architecture...
+
+extension RecorderViewModel {
+    func checkPermissionAndStartOrStopRecorder(for category: Category) {
+        let fileName = "\(category.wrappedCategoryName) \(Date().toString(dateFormat: "dd, MMM YYYY 'at' HH:mm:ss")).m4a"
+        RecorderService.shared.startRecording { result in
+            switch(result) {
+            case .success:
+                self.startOrStopRecorder(for: fileName, on: category)
+            case .failure(let error):
+                self.recorderErrorHandling(error)
+            }
+        }
+    }
+    
+    private func startOrStopRecorder(for fileName: String, on category: Category) {
+        RecorderService.shared.recordAudio(fileName, on: category) { recorderStatus in
+            switch recorderStatus {
+            case .success(let recorder):
+                DispatchQueue.main.async {
+                    withAnimation {
+                        self.recorderStatus = recorder
+                        self.getRecordings(of: category)
+                    }
+                }
+            case .failure(let errorMessage):
+                // Handle Failures in here...
+                print(errorMessage)
+            }
+        }
+    }
+    
+    private func recorderErrorHandling(_ error: RecorderError) {
+        switch error {
+        case .permissionNotGranted:
+            DispatchQueue.main.async {
+                self.showAlert.toggle()
+            }
+        case .someOtherError(let errorMessage):
+            print(errorMessage)
         }
     }
 }

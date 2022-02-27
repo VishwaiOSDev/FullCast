@@ -44,16 +44,16 @@ final class RecorderService {
         }
     }
     
-    func recordAudio(_ url: URL, completion: @escaping (Result<RecorderStatus,RecorderError>) -> ()) {
-        defer {
-            isRecording = true
-        }
+    func recordAudio(_ fileName: String, on category: Category, completion: @escaping (Result<RecorderStatus,RecorderError>) -> ()) {
+        let audioPath = URL.documents.appendingPathComponent(fileName)
         if !isRecording {
             do {
-                audioRecorder = try AVAudioRecorder(url: url, settings: Constants.settings)
+                audioRecorder = try AVAudioRecorder(url: audioPath, settings: Constants.settings)
                 audioRecorder.prepareToRecord()
                 audioRecorder.record()
                 completion(.success(.startRecorder))
+                CoreDataController.shared.saveRecording(fileName, category)
+                isRecording = true
             } catch {
                 completion(.failure(.someOtherError(error.localizedDescription)))
                 fatalError("Error while recording the audio file \(error.localizedDescription)")
@@ -66,8 +66,8 @@ final class RecorderService {
     
     func stopRecorder() {
         defer {
-            audioRecorder = nil
             isRecording = false
+            audioRecorder = nil
         }
         audioRecorder.stop()
     }
@@ -83,14 +83,5 @@ final class RecorderService {
     }
 }
 
-extension RecorderError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case .permissionNotGranted:
-            return NSLocalizedString("Mirophone is not enabled", comment: "Enable Permission")
-        case .someOtherError(let error):
-            return NSLocalizedString(error, comment: "Catch Error")
-        }
-    }
-}
+
 
