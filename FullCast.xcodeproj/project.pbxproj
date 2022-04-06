@@ -15,12 +15,39 @@
 		880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F327ABE4A50006EC4F /* PrimaryButton.swift */; };
 		880849F627ABED110006EC4F /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F527ABED110006EC4F /* Authentication.swift */; };
 		880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880849F727ABED830006EC4F /* AuthenticationViewModel.swift */; };
+		882085D327C662C100A2DE56 /* MockCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882085D227C662C100A2DE56 /* MockCategoryViewModel.swift */; };
+		882085D527C6657400A2DE56 /* AlertWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882085D427C6657400A2DE56 /* AlertWithTextField.swift */; };
+		88272F6327AFF30B000B2AAC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88272F6227AFF30B000B2AAC /* Extensions.swift */; };
+		882FF42027C8B3BE008620D7 /* PromptService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882FF41F27C8B3BE008620D7 /* PromptService.swift */; };
+		882FF42327C8CA39008620D7 /* RecoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882FF42227C8CA39008620D7 /* RecoderService.swift */; };
+		882FF42527C8D920008620D7 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882FF42427C8D920008620D7 /* AlertService.swift */; };
+		8830AFBB27C26BD600274064 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8830AFBA27C26BD600274064 /* Controller.swift */; };
+		884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643AE27B22CE400E5AAD4 /* RecordingCell.swift */; };
+		884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884643B027B234B200E5AAD4 /* CategoryView.swift */; };
+		884951A827CA44FB005B1715 /* PlayingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884951A727CA44FB005B1715 /* PlayingService.swift */; };
+		8862A92727BA19E300B0A9DF /* FullCastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8862A92627BA19E300B0A9DF /* FullCastTests.swift */; };
 		886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886874AC27AFB57700BF2692 /* CoreDataController.swift */; };
 		886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */; };
-		8872BABA27ACEF4200643352 /* VoiceRecodingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */; };
-		8872BABC27AD0AFE00643352 /* AudioRecorderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */; };
-		8872BABE27AD0F5700643352 /* RecordingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABD27AD0F5700643352 /* RecordingModel.swift */; };
+		886E2E3427BF7F7B0069A39D /* Recording+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3027BF7F7B0069A39D /* Recording+CoreDataClass.swift */; };
+		886E2E3527BF7F7B0069A39D /* Recording+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3127BF7F7B0069A39D /* Recording+CoreDataProperties.swift */; };
+		886E2E3627BF7F7B0069A39D /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3227BF7F7B0069A39D /* Category+CoreDataClass.swift */; };
+		886E2E3727BF7F7B0069A39D /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886E2E3327BF7F7B0069A39D /* Category+CoreDataProperties.swift */; };
+		8872BABA27ACEF4200643352 /* RecorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BAB927ACEF4200643352 /* RecorderView.swift */; };
+		8872BABC27AD0AFE00643352 /* RecorderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */; };
+		8879D9D727B14513004E19C0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8879D9D627B14513004E19C0 /* Constants.swift */; };
+		889E4D4027B25F3B00173B4C /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */; };
+		88DFD8B327B10865008E39B1 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88DFD8B227B10865008E39B1 /* Recorder.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8862A92827BA19E300B0A9DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 880849CE27ABBD310006EC4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 880849D527ABBD310006EC4F;
+			remoteInfo = FullCast;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		880849D627ABBD310006EC4F /* FullCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FullCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,15 +59,40 @@
 		880849F327ABE4A50006EC4F /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		880849F527ABED110006EC4F /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		880849F727ABED830006EC4F /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		882085D227C662C100A2DE56 /* MockCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCategoryViewModel.swift; sourceTree = "<group>"; };
+		882085D427C6657400A2DE56 /* AlertWithTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertWithTextField.swift; sourceTree = "<group>"; };
+		88272F6227AFF30B000B2AAC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		882FF41F27C8B3BE008620D7 /* PromptService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptService.swift; sourceTree = "<group>"; };
+		882FF42227C8CA39008620D7 /* RecoderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoderService.swift; sourceTree = "<group>"; };
+		882FF42427C8D920008620D7 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
+		8830AFBA27C26BD600274064 /* Controller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
+		884643AE27B22CE400E5AAD4 /* RecordingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingCell.swift; sourceTree = "<group>"; };
+		884643B027B234B200E5AAD4 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		884951A727CA44FB005B1715 /* PlayingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingService.swift; sourceTree = "<group>"; };
+		8862A92427BA19E200B0A9DF /* FullCastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FullCastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8862A92627BA19E300B0A9DF /* FullCastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCastTests.swift; sourceTree = "<group>"; };
 		886874AC27AFB57700BF2692 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		886874AF27AFB67900BF2692 /* FullCast.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FullCast.xcdatamodel; sourceTree = "<group>"; };
-		8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecodingView.swift; sourceTree = "<group>"; };
-		8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewModel.swift; sourceTree = "<group>"; };
-		8872BABD27AD0F5700643352 /* RecordingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingModel.swift; sourceTree = "<group>"; };
+		886E2E3027BF7F7B0069A39D /* Recording+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Recording+CoreDataClass.swift"; path = "../../Recording+CoreDataClass.swift"; sourceTree = "<group>"; };
+		886E2E3127BF7F7B0069A39D /* Recording+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recording+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		886E2E3227BF7F7B0069A39D /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataClass.swift"; path = "../../Category+CoreDataClass.swift"; sourceTree = "<group>"; };
+		886E2E3327BF7F7B0069A39D /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8872BAB927ACEF4200643352 /* RecorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderView.swift; sourceTree = "<group>"; };
+		8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecorderViewModel.swift; sourceTree = "<group>"; };
+		8879D9D627B14513004E19C0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		88DFD8B227B10865008E39B1 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		880849D327ABBD310006EC4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8862A92127BA19E200B0A9DF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -54,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				880849D827ABBD310006EC4F /* FullCast */,
+				8862A92527BA19E300B0A9DF /* FullCastTests */,
 				880849D727ABBD310006EC4F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -62,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				880849D627ABBD310006EC4F /* FullCast.app */,
+				8862A92427BA19E200B0A9DF /* FullCastTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,10 +125,14 @@
 			children = (
 				880849D927ABBD310006EC4F /* FullCastApp.swift */,
 				886874AC27AFB57700BF2692 /* CoreDataController.swift */,
+				889E4D4D27B282BC00173B4C /* NSManagedObject */,
 				880849ED27ABC3140006EC4F /* Model */,
 				880849EC27ABC30B0006EC4F /* View */,
 				880849EE27ABC31D0006EC4F /* ViewModel */,
 				880849F227ABE4720006EC4F /* Components */,
+				8879D9D527B144F3004E19C0 /* Helper */,
+				882FF41E27C8B392008620D7 /* Services */,
+				88272F6227AFF30B000B2AAC /* Extensions.swift */,
 				880849DD27ABBD340006EC4F /* Assets.xcassets */,
 				886874AE27AFB67900BF2692 /* FullCast.xcdatamodeld */,
 				880849DF27ABBD340006EC4F /* Preview Content */,
@@ -94,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				880849EF27ABC32C0006EC4F /* Authentication */,
-				8872BAB827ACEF1900643352 /* Voice Note */,
+				8872BAB827ACEF1900643352 /* Recorder */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -103,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				880849F527ABED110006EC4F /* Authentication.swift */,
-				8872BABD27AD0F5700643352 /* RecordingModel.swift */,
+				889E4D4127B27ACD00173B4C /* Recorder */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -112,7 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				880849F727ABED830006EC4F /* AuthenticationViewModel.swift */,
-				8872BABB27AD0AFE00643352 /* AudioRecorderViewModel.swift */,
+				8872BABB27AD0AFE00643352 /* RecorderViewModel.swift */,
+				889E4D3F27B25F3B00173B4C /* CategoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -130,16 +189,75 @@
 			isa = PBXGroup;
 			children = (
 				880849F327ABE4A50006EC4F /* PrimaryButton.swift */,
+				884643AE27B22CE400E5AAD4 /* RecordingCell.swift */,
+				8830AFBA27C26BD600274064 /* Controller.swift */,
+				882085D427C6657400A2DE56 /* AlertWithTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
 		};
-		8872BAB827ACEF1900643352 /* Voice Note */ = {
+		882FF41E27C8B392008620D7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8872BAB927ACEF4200643352 /* VoiceRecodingView.swift */,
+				882FF42127C8CA1A008620D7 /* AVRecorder */,
+				882FF41F27C8B3BE008620D7 /* PromptService.swift */,
+				882FF42427C8D920008620D7 /* AlertService.swift */,
 			);
-			path = "Voice Note";
+			path = Services;
+			sourceTree = "<group>";
+		};
+		882FF42127C8CA1A008620D7 /* AVRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				882FF42227C8CA39008620D7 /* RecoderService.swift */,
+				884951A727CA44FB005B1715 /* PlayingService.swift */,
+			);
+			path = AVRecorder;
+			sourceTree = "<group>";
+		};
+		8862A92527BA19E300B0A9DF /* FullCastTests */ = {
+			isa = PBXGroup;
+			children = (
+				8862A92627BA19E300B0A9DF /* FullCastTests.swift */,
+				882085D227C662C100A2DE56 /* MockCategoryViewModel.swift */,
+			);
+			path = FullCastTests;
+			sourceTree = "<group>";
+		};
+		8872BAB827ACEF1900643352 /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				884643B027B234B200E5AAD4 /* CategoryView.swift */,
+				8872BAB927ACEF4200643352 /* RecorderView.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		8879D9D527B144F3004E19C0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8879D9D627B14513004E19C0 /* Constants.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		889E4D4127B27ACD00173B4C /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				88DFD8B227B10865008E39B1 /* Recorder.swift */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		889E4D4D27B282BC00173B4C /* NSManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				886E2E3027BF7F7B0069A39D /* Recording+CoreDataClass.swift */,
+				886E2E3127BF7F7B0069A39D /* Recording+CoreDataProperties.swift */,
+				886E2E3227BF7F7B0069A39D /* Category+CoreDataClass.swift */,
+				886E2E3327BF7F7B0069A39D /* Category+CoreDataProperties.swift */,
+			);
+			path = NSManagedObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +280,24 @@
 			productReference = 880849D627ABBD310006EC4F /* FullCast.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8862A92327BA19E200B0A9DF /* FullCastTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8862A92C27BA19E300B0A9DF /* Build configuration list for PBXNativeTarget "FullCastTests" */;
+			buildPhases = (
+				8862A92027BA19E200B0A9DF /* Sources */,
+				8862A92127BA19E200B0A9DF /* Frameworks */,
+				8862A92227BA19E200B0A9DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8862A92927BA19E300B0A9DF /* PBXTargetDependency */,
+			);
+			name = FullCastTests;
+			productName = FullCastTests;
+			productReference = 8862A92427BA19E200B0A9DF /* FullCastTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -174,6 +310,10 @@
 				TargetAttributes = {
 					880849D527ABBD310006EC4F = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					8862A92327BA19E200B0A9DF = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 880849D527ABBD310006EC4F;
 					};
 				};
 			};
@@ -191,6 +331,7 @@
 			projectRoot = "";
 			targets = (
 				880849D527ABBD310006EC4F /* FullCast */,
+				8862A92327BA19E200B0A9DF /* FullCastTests */,
 			);
 		};
 /* End PBXProject section */
@@ -205,6 +346,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8862A92227BA19E200B0A9DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -213,20 +361,52 @@
 			buildActionMask = 2147483647;
 			files = (
 				880849F627ABED110006EC4F /* Authentication.swift in Sources */,
+				886E2E3627BF7F7B0069A39D /* Category+CoreDataClass.swift in Sources */,
+				884643B127B234B200E5AAD4 /* CategoryView.swift in Sources */,
 				880849F427ABE4A50006EC4F /* PrimaryButton.swift in Sources */,
+				884951A827CA44FB005B1715 /* PlayingService.swift in Sources */,
 				886874AD27AFB57800BF2692 /* CoreDataController.swift in Sources */,
 				886874B027AFB67900BF2692 /* FullCast.xcdatamodeld in Sources */,
-				8872BABA27ACEF4200643352 /* VoiceRecodingView.swift in Sources */,
+				8830AFBB27C26BD600274064 /* Controller.swift in Sources */,
+				8872BABA27ACEF4200643352 /* RecorderView.swift in Sources */,
+				886E2E3527BF7F7B0069A39D /* Recording+CoreDataProperties.swift in Sources */,
+				882085D527C6657400A2DE56 /* AlertWithTextField.swift in Sources */,
+				8879D9D727B14513004E19C0 /* Constants.swift in Sources */,
+				886E2E3427BF7F7B0069A39D /* Recording+CoreDataClass.swift in Sources */,
 				880849F127ABE28A0006EC4F /* SignUpView.swift in Sources */,
-				8872BABC27AD0AFE00643352 /* AudioRecorderViewModel.swift in Sources */,
+				8872BABC27AD0AFE00643352 /* RecorderViewModel.swift in Sources */,
+				882FF42527C8D920008620D7 /* AlertService.swift in Sources */,
+				88272F6327AFF30B000B2AAC /* Extensions.swift in Sources */,
 				880849F827ABED830006EC4F /* AuthenticationViewModel.swift in Sources */,
 				880849DC27ABBD310006EC4F /* LoginView.swift in Sources */,
+				886E2E3727BF7F7B0069A39D /* Category+CoreDataProperties.swift in Sources */,
+				884643AF27B22CE400E5AAD4 /* RecordingCell.swift in Sources */,
 				880849DA27ABBD310006EC4F /* FullCastApp.swift in Sources */,
-				8872BABE27AD0F5700643352 /* RecordingModel.swift in Sources */,
+				882FF42327C8CA39008620D7 /* RecoderService.swift in Sources */,
+				889E4D4027B25F3B00173B4C /* CategoryViewModel.swift in Sources */,
+				882FF42027C8B3BE008620D7 /* PromptService.swift in Sources */,
+				88DFD8B327B10865008E39B1 /* Recorder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8862A92027BA19E200B0A9DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				882085D327C662C100A2DE56 /* MockCategoryViewModel.swift in Sources */,
+				8862A92727BA19E300B0A9DF /* FullCastTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8862A92927BA19E300B0A9DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 880849D527ABBD310006EC4F /* FullCast */;
+			targetProxy = 8862A92827BA19E300B0A9DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		880849E727ABBD340006EC4F /* Debug */ = {
@@ -363,6 +543,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -394,6 +575,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -404,6 +586,42 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8862A92A27BA19E300B0A9DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vishwa.FullCastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FullCast.app/FullCast";
+			};
+			name = Debug;
+		};
+		8862A92B27BA19E300B0A9DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5Q2G7C7C3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vishwa.FullCastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FullCast.app/FullCast";
 			};
 			name = Release;
 		};
@@ -424,6 +642,15 @@
 			buildConfigurations = (
 				880849EA27ABBD340006EC4F /* Debug */,
 				880849EB27ABBD340006EC4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8862A92C27BA19E300B0A9DF /* Build configuration list for PBXNativeTarget "FullCastTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8862A92A27BA19E300B0A9DF /* Debug */,
+				8862A92B27BA19E300B0A9DF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

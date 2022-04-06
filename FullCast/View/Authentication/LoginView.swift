@@ -46,7 +46,7 @@ struct LoginView: View {
         }
         .disableAutocorrection(true)
         .frame(height : 150)
-        .background(.black)
+        .background(Color(UIColor(.black)))
     }
     
     var signUpSheet : some View {
